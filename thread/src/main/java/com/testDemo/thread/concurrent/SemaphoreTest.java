@@ -1,5 +1,8 @@
 package com.testDemo.thread.concurrent;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -45,16 +48,40 @@ public class SemaphoreTest {
         Semaphore semaphore = new Semaphore(5); //机器数目
         for(int i=0;i<N;i++)
             new Worker(i,semaphore).start();
-    }
+        System.out.println("====end=======");
 
+    }
+    public void semaphore2(){
+        try {
+            int N = 8;            //工人数
+            final CountDownLatch latch = new CountDownLatch(N);
+            Semaphore semaphore = new Semaphore(5); //机器数目
+            long start = System.currentTimeMillis();
+            for(int i=0;i<N;i++)
+                new Worker(i,semaphore,latch).start();
+            latch.await();
+            System.out.println(System.currentTimeMillis()-start);
+
+            System.out.println("====end=======");
+            for(int i=0;i<N;i++)
+                new Worker(20+i,semaphore).start();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     static class Worker extends Thread{
         private int num;
         private Semaphore semaphore;
+        private CountDownLatch latch;
         public Worker(int num,Semaphore semaphore){
             this.num = num;
             this.semaphore = semaphore;
         }
-
+        public Worker(int num,Semaphore semaphore,CountDownLatch latch){
+            this.num = num;
+            this.semaphore = semaphore;
+            this.latch = latch;
+        }
         @Override
         public void run() {
             try {
@@ -63,6 +90,9 @@ public class SemaphoreTest {
                 Thread.sleep(2000);
                 System.out.println("工人"+this.num+"释放出机器");
                 semaphore.release();
+                if (latch!=null){
+                    latch.countDown();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -71,7 +101,7 @@ public class SemaphoreTest {
 
     public static void main(String[] args) {
         SemaphoreTest semaphoreTest = new SemaphoreTest();
-        semaphoreTest.semaphore1();
+        semaphoreTest.semaphore2();
 
     }
 }
