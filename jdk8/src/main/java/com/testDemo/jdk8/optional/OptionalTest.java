@@ -19,8 +19,9 @@ public class OptionalTest {
      * @CreateDate: 2019/3/26 14:35
      */
     public static String oldGetName(User u) {
-        if (u == null)
+        if (u == null){
             return "Unknown";
+        }
         return u.name;
     }
     public static String newGetName(User u) {
@@ -68,6 +69,7 @@ public class OptionalTest {
         Optional<String> string = Optional.of(param);
 
         string.ifPresent(System.out::println);
+
     }
     /**
      * @Description: Optional可以用来检验参数的合法性
