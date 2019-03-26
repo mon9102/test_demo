@@ -12,10 +12,10 @@ public class BiFunctionTest {
     public static void main(String[] args) {
         Server s = new Server();
 
-        BiFunction<Server, String, Map> biFunction = (t, u) -> {
+        BiFunction<IServer, String, Map> biFunction = (t, u) -> {
             return s.aa(u);
         };
-        BiFunction<Server, String, Map> biFunction1 = (t, u) -> {
+        BiFunction<IServer, String, Map> biFunction1 = (t, u) -> {
             return s.cc(u);
         };
         Map<String,String> map =  biFunction.apply(s,"a");
