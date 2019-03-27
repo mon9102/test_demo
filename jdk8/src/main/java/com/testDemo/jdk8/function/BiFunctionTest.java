@@ -22,8 +22,14 @@ public class BiFunctionTest {
 
             return Optional.ofNullable(t).map(server->server.cc(u)).orElse(null);
         };
+        BiFunction<IServer, String, Map> biFunction2 = (t, u) -> {
+
+            return Optional.ofNullable(t).map(server->server.bb(u)).orElse(null);
+        };
         Map<String,String> map =  biFunction.apply(s,"a");
         System.out.println(map);
+        Map<String,String> mapbb =  biFunction2.apply(s,"b");
+        System.out.println(mapbb);
         s=null;
         Map<String,String> map1 = biFunction1.apply(s,"c");
         Optional<Map> m1 =  Optional.ofNullable(map1);

@@ -1,6 +1,8 @@
 package com.testDemo.jdk8.function;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @Auther: zouren
@@ -10,4 +12,9 @@ import java.util.Map;
 public interface IServer {
     Map aa(String a);
     Map cc(String c);
+    default Map bb(String b){
+        Map re = new HashMap(10);
+        re.put("bb",b);
+        return re;
+    }
 }
