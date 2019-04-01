@@ -1,8 +1,6 @@
 package com.sinosoft.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,60 +20,70 @@ public class TestController {
 
 
     @ApiOperation("test")
-    @ApiParam(name = "num", value = "测试号:56789", required = true)
-    @RequestMapping("/{id}")
-    public String test(@PathVariable String id) {
+    @ApiParam(name = "num", value = ":56789", required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "测试号",paramType="query", dataType = "String",example="5,6,7,8,9",defaultValue ="5"),
+            @ApiImplicitParam(name = "gpg", value = "是否使用加密",paramType="query", dataType = "String", example="0,1" ,defaultValue ="0" )
+    })
+    @RequestMapping("/{id}/{gpg}")
+    public String test(@PathVariable String id,@PathVariable String gpg) {
         Map<String, String> param = null;
+
         switch (id) {
-            case "5":
-                param = param5();
-                break;
-            case "6":
-                param = param6();
+             case "6":
+                param = param6(gpg);
 
                 break;
             case "7":
-                param = param7();
+                param = param7(gpg);
 
                 break;
             case "8":
-                param = param8();
+                param = param8(gpg);
 
                 break;
             case "9":
-                param = param9();
+                param = param9(gpg);
 
                 break;
+             default:
+                 param = param5(gpg);
+                 break;
 
         }
         return "1111";
     }
-
-    private Map<String, String> param5() {
+    /**
+     * @Description: 服文5请求
+     * @Param: gpg  1为使用gpg加密
+     * @Return: java.util.Map<java.lang.String,java.lang.String>
+     * @CreateDate: 2019/4/1 11:21
+     */
+    private Map<String, String> param5( String gpg) {
         Map<String, String> param = new HashMap<String, String>(40);
 
         return param;
     }
 
-    private Map<String, String> param6() {
+    private Map<String, String> param6( String gpg) {
         Map<String, String> param = new HashMap<String, String>(40);
 
         return param;
     }
 
-    private Map<String, String> param7() {
+    private Map<String, String> param7( String gpg) {
         Map<String, String> param = new HashMap<String, String>(40);
 
         return param;
     }
 
-    private Map<String, String> param8() {
+    private Map<String, String> param8( String gpg) {
         Map<String, String> param = new HashMap<String, String>(40);
 
         return param;
     }
 
-    private Map<String, String> param9() {
+    private Map<String, String> param9(String gpg) {
         Map<String, String> param = new HashMap<String, String>(40);
 
         return param;

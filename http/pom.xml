@@ -75,5 +75,21 @@
         <artifactId>springfox-swagger-ui</artifactId>
         <version>${springfox-swagger2.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpg-jdk15on -->
+    <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcpg-jdk15on</artifactId>
+        <!--<version>1.61</version>-->
+        <version>1.51</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+    <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcprov-jdk15on</artifactId>
+        <version>1.51</version>
+    </dependency>
+
+
 </dependencies>
 </project>
