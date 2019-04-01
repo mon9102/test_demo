@@ -22,7 +22,8 @@ import org.springframework.beans.factory.annotation.Value;
  * Created by zoure on 2018/5/14.
  */
 @Api(value = "test", description = "test", tags = "tag1")
-@RestController("/test")
+@RestController
+@RequestMapping("/test")
 public class TestController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -124,6 +125,7 @@ public class TestController {
                 File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
                 log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
                 input = FileUtils.readFileToString(encryptFile);
+                //input = input.substring(49, input.length()-27);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
