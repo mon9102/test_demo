@@ -1,4 +1,4 @@
-package com.sinosfot.util;
+package com.sinosoft.util;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
@@ -41,7 +41,9 @@ import org.bouncycastle.openpgp.operator.jcajce.JcePBESecretKeyDecryptorBuilder;
 import org.bouncycastle.openpgp.operator.jcajce.JcePGPDataEncryptorBuilder;
 import org.bouncycastle.openpgp.operator.jcajce.JcePublicKeyDataDecryptorFactoryBuilder;
 import org.bouncycastle.openpgp.operator.jcajce.JcePublicKeyKeyEncryptionMethodGenerator;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PgpUtils {
 
     private static PgpUtils INSTANCE = null;

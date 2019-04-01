@@ -5,3 +5,8 @@ logging:
     root: INFO
 server:
   port: 8080
+  
+  
+publicKey: /pubKey.asc  
+file5: /file5.txt
+
