@@ -350,10 +350,16 @@ public class HttpUtils {
 
     public static void main(String[] args) throws Exception {
         Map query = new HashMap(20);
-        query.put("q","你好");
-        HttpResponse s = doGet("https://www.baidu.com",null,new HashMap<>(),query);
+        query.put("wd","完全");
+        query.put("ie","utf-8");
+        HttpResponse s = doGet("https://www.baidu.com","/s",new HashMap<>(),query);
 
         System.out.println( s.getStatusLine().getStatusCode());
+        if( s.getStatusLine().getStatusCode()==200){
+            System.out.println(   EntityUtils.toString(s.getEntity(), "UTF-8"));
+//            System.out.println(getJson(s));
+        }
+
     }
 }
 
