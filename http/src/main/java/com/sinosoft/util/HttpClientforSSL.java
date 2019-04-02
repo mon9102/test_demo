@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.KeyStore;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.net.ssl.SSLContext;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.Registry;
@@ -46,6 +50,7 @@ public class HttpClientforSSL {
      */
     public void init(String keyStoreFile, String keyStorePass,
                      String trustStoreFile, String trustStorePass) throws Exception {
+        if (CONNECTION_MANAGER==null){
         System.out.println("init conection pool...");
 
         InputStream ksis = new FileInputStream(new File(keyStoreFile));
@@ -83,6 +88,7 @@ public class HttpClientforSSL {
         ksis.close();
         tsis.close();
         CONNECTION_MANAGER = new PoolingHttpClientConnectionManager(registry);
+        }
 
     }
 
@@ -99,7 +105,6 @@ public class HttpClientforSSL {
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setConnectionManager(CONNECTION_MANAGER).build();
         HttpPost httpPost = new HttpPost(url);
-
         httpPost.setEntity(new StringEntity(params,
                 ContentType.APPLICATION_JSON));
 
@@ -109,6 +114,31 @@ public class HttpClientforSSL {
         String content = convertStreamToString(respIs);
         System.out.println(content);
         EntityUtils.consume(resp.getEntity());
+    }
+    public  String post(String url,  Map<String, String> headers,
+                        String jsonStr)throws Exception {
+        String re = null;
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setConnectionManager(CONNECTION_MANAGER).build();
+        HttpPost httpPost = new HttpPost(url);
+        if (headers!=null){
+            for (Map.Entry<String, String> e : headers.entrySet()) {
+                httpPost.addHeader(e.getKey(), e.getValue());
+            }
+        }
+        httpPost.setEntity(new StringEntity(jsonStr,
+                ContentType.APPLICATION_JSON));
+        CloseableHttpResponse resp = httpClient.execute(httpPost);
+        StatusLine statusLine=resp.getStatusLine();
+        System.out.println(statusLine);
+        if(statusLine.getStatusCode()==200){
+            InputStream respIs = resp.getEntity().getContent();
+            re= convertStreamToString(respIs);
+        }else {
+
+            re=statusLine.getReasonPhrase();
+        }
+        return re;
     }
 
 
@@ -152,7 +182,8 @@ public class HttpClientforSSL {
         HttpClientforSSL obj = new HttpClientforSSL();
         try {
             obj.init(keyStoreFile, keyStorePass, trustStoreFile, trustStorePass);
-            obj.post(url, params);
+           String res =  obj.post(url,null, params);
+            System.out.println(res);
 //            for (int i = 0; i < 10; i++) {
 //                obj.post(url, params);
 //            }
