@@ -1,0 +1,53 @@
+orgId : DBTCQ
+apiKey : d0cc814c-c6c5-4f6a-b1d9-8e866c3a75cf
+Content-Type : application/json
+{
+"header":{
+"msgId":"SG70123987456",
+"orgId":"0123",
+"timeStamp":"2017-01-26T16:16:43.567"
+},
+"txnInfo":{
+"customerReference":"31345",
+"txnType":"GPP",
+"txnDate":"2017-01-26",
+"txnCcy":"HKD",
+"txnAmount":"1063.5",
+"purposeOfPayment":" CXBSNS ",
+"senderParty":{
+"name":"CADIS LTD",
+"accountNo":"0123456789"
+},
+"receivingParty":{
+"name":"JOHN TAN",
+"bankId":"016",
+"bankCtryCode" : "HK",
+"addresses":[
+{"address":"12 Marina Boulevard"},
+{"address":"03-123"},
+{"address":"S(018982)"}],
+"proxyType" : "M",
+"proxyType":”+852-12345678”
+},
+"adviseDelivery":{
+"mode":"ES",
+"emails":[
+{"email":"johntan@john.com"},
+{"email":"john.tan@hmail.com"}
+],
+"phoneNumbers":[
+{"phoneNumber":"+852-12345678"},
+{"phoneNumber":"+852-12345678"}
+]
+},
+"rmtInf":{
+"paymentDetails":"test123",
+"invoiceDetails":[
+{"invoice": ""}
+],
+"clientReferences":[
+{"clientReference":""}
+]
+}
+}
+}

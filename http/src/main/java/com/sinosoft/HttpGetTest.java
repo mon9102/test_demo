@@ -20,6 +20,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import java.io.File;
+import org.apache.http.client.methods.HttpPost;
 
 /**
  *
@@ -32,7 +33,7 @@ public class HttpGetTest {
         CloseableHttpClient httpClient = null;
 
         try {
-            SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(new File("/home/zookeeper/test.keystore"), "123456".toCharArray()).build();
+            SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(new File("/servers.keystore"), "123456".toCharArray()).build();
             SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
                 public boolean verify(String s, SSLSession sslSession) {
                     return true;
@@ -43,9 +44,9 @@ public class HttpGetTest {
             connectionManager.setMaxTotal(20);
             connectionManager.setDefaultMaxPerRoute(20);
             httpClient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory).setConnectionManager(connectionManager).build();
-            HttpGet httpGet = new HttpGet("https://10.11.22.228:8443/");
-            System.out.println("Executing request " + httpGet.getRequestLine());
-            CloseableHttpResponse response = httpClient.execute(httpGet);
+            HttpPost httpPost = new HttpPost("https://10.11.22.228:8443/");
+            System.out.println("Executing request " + httpPost.getRequestLine());
+            CloseableHttpResponse response = httpClient.execute(httpPost);
             System.out.println("----------------------------------------");
             System.out.println(response.getStatusLine());
             System.out.println(EntityUtils.toString(response.getEntity()));

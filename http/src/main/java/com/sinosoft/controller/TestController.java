@@ -1,11 +1,14 @@
 package com.sinosoft.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sinosoft.util.HttpClientforSSL;
 import com.sinosoft.util.PgpUtils;
 import io.swagger.annotations.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,19 +30,28 @@ import org.springframework.beans.factory.annotation.Value;
 public class TestController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
+
+    //ssl
+    @Value("${keyStore}")
+    private String keyStore;
+    @Value("${passWord}")
+    private String passWord;
+    @Autowired
+    HttpClientforSSL https;
+    //gpg
     @Autowired
     PgpUtils pgu;
     @Value("${publicKey}")
     private String publicKey;
     @Value("${file5}")
     private String file5;
-    
-    @RequestMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-    
+    //url
+    @Value("${url5}")
+    private String url5;
 
+    
+    
+    
     @ApiOperation("test")
     @ApiParam(name = "num", value = ":56789", required = true)
     @ApiImplicitParams({
@@ -48,32 +60,42 @@ public class TestController {
             @ApiImplicitParam(name = "gpg", value = "是否使用加密", paramType = "query", dataType = "String", example = "0,1", defaultValue = "0")
     })
     @RequestMapping("/{id}/{gpg}")
-    public String test(@PathVariable String id, @PathVariable String gpg) {
+    public String test(@PathVariable String id, @PathVariable String gpg) throws Exception {
         String param = null;
+        String url = "eeeeee";
+        
+        
+        Map<String, String> header = new HashMap<String, String>();
+        header.put("msgId", "SG70123987456");
+        header.put("orgId", "0123");
+        header.put("timeStamp", "2017-01-26T16:16:43.567");
 
         switch (id) {
             case "6":
-//                param = param6(gpg);
-
+                param = param6(gpg);
+                url = url5;
                 break;
             case "7":
-//                param = param7(gpg);
-
+                param = param7(gpg);
+                url = url5;
                 break;
             case "8":
-//                param = param8(gpg);
-
+                param = param8(gpg);
+                url = url5;
                 break;
             case "9":
-//                param = param9(gpg);
-
+                param = param9(gpg);
+                url = url5;
                 break;
             default:
                 param = param5(gpg);
+                url = url5;
                 break;
 
         }
-        return param;
+        https.init(keyStore, passWord);
+        String re = https.post(url, header, param);
+        return re;
     }
 
     /**
@@ -86,28 +108,20 @@ public class TestController {
         return pgp(file5, gpg);
     }
 
-    private Map<String, String> param6(String gpg) {
-        Map<String, String> param = new HashMap<String, String>(40);
-
-        return param;
+    private String param6(String gpg) {
+        return pgp(file5, gpg);
     }
 
-    private Map<String, String> param7(String gpg) {
-        Map<String, String> param = new HashMap<String, String>(40);
-
-        return param;
+    private String param7(String gpg) {
+        return pgp(file5, gpg);
     }
 
-    private Map<String, String> param8(String gpg) {
-        Map<String, String> param = new HashMap<String, String>(40);
-
-        return param;
+    private String param8(String gpg) {
+        return pgp(file5, gpg);
     }
 
-    private Map<String, String> param9(String gpg) {
-        Map<String, String> param = new HashMap<String, String>(40);
-
-        return param;
+    private String param9(String gpg) {
+        return pgp(file5, gpg);
     }
 
     private String pgp(String fileName, String gpg) {
