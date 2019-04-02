@@ -81,7 +81,7 @@ public class HttpClientforSSL {
                 // })
                 .build();
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-                sslContext, new String[] { "TLSv1" }, null,
+                sslContext, new String[] { "TLSv1.2" }, null,
                 SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 
         Registry<ConnectionSocketFactory> registry = RegistryBuilder
@@ -169,6 +169,8 @@ public class HttpClientforSSL {
     }
 
     public static void main(String[] args) {
+        System.setProperty("javax.net.debug", "ssl,handshake");
+
         // 服务地址
         String url = "https://10.11.22.228:8443";
         // 服务参数，这里接口的参数采用 json 格式传递

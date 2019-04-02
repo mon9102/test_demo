@@ -140,6 +140,7 @@ public class TestController {
                 log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
                 input = FileUtils.readFileToString(encryptFile);
                 //input = input.substring(49, input.length()-27);
+                log.info(input);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
