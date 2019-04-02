@@ -315,7 +315,11 @@ public class HttpUtils {
             };
             SSLContext ctx = SSLContext.getInstance(SSLConnectionSocketFactory.TLS);
             ctx.init(null, new TrustManager[] { trustManager }, null);
-            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(ctx, NoopHostnameVerifier.INSTANCE);
+//            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(ctx, NoopHostnameVerifier.INSTANCE);
+            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(ctx,
+                    new String[]{"TLSv1","TLSv1.1","TLSv1.2"},null,
+                    NoopHostnameVerifier.INSTANCE);
+
             // 创建Registry
             RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
                     .setExpectContinueEnabled(Boolean.TRUE).setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM,AuthSchemes.DIGEST))
@@ -350,9 +354,9 @@ public class HttpUtils {
 
     public static void main(String[] args) throws Exception {
         Map query = new HashMap(20);
-        query.put("wd","完全");
-        query.put("ie","utf-8");
-        HttpResponse s = doGet("https://www.baidu.com","/s",new HashMap<>(),query);
+//        query.put("wd","完全");
+//        query.put("ie","utf-8");
+        HttpResponse s = doGet("https://www.fliggy.com/","",new HashMap<>(),query);
 
         System.out.println( s.getStatusLine().getStatusCode());
         if( s.getStatusLine().getStatusCode()==200){
