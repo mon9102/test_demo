@@ -52,6 +52,7 @@ public class CyclicBarrierTest {
 
             public void run() {
                 System.out.println("当前线程"+Thread.currentThread().getName());
+                System.out.println("===========end=============");
             }
         });
 
@@ -62,6 +63,6 @@ public class CyclicBarrierTest {
 
     public static void main(String[] args) {
         CyclicBarrierTest cyclicBarrierTest = new CyclicBarrierTest();
-        cyclicBarrierTest.cyclicBarrier2();
+        cyclicBarrierTest.cyclicBarrier1();
     }
 }
