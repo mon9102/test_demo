@@ -34,7 +34,7 @@ https单双向认证：
 
      keytool -export -alias client -keystore client.p12 -storetype PKCS12 -storepass 123456 -rfc -file client.cer
 
- 2.4.将客户端生的CER文件导入服务端的证书库:
+ 2.4.将客户端生的CER文件导入服务端的证书库: 网上一般使用同一个Server端证书
 
      keytool -import -v -file client.cer -keystore clientxx.keystore
 
