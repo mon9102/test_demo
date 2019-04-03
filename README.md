@@ -9,7 +9,7 @@ https单双向认证：
 
  1.2.生成CER文件
 
-     keytool -export -alias server -keystore server.keystore -file ca.cer -storepass 123456
+     keytool -export -alias server -keystore servers.keystore -file ca.cer -storepass 123456
 
 2.双向认证
 
