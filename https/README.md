@@ -7,16 +7,24 @@ https单双向认证：
 
      keytool -genkey -keyalg RSA -dname "cn=localhost,ou=none,o=none,l=shanghai,st=shanghai,c=cn" -alias servers -keypass 123456 -keystore servers.keystore -storepass 123456 -validity 3650    
 
- 1.2.生成CER文件
+ 1.2.生成CER文件，为是在浏览器中使用
 
-     keytool -export -alias server -keystore server.keystore -file ca.cer -storepass 123456
+     keytool -export -alias server -keystore servers.keystore -file ca.cer -storepass 123456
+     
+ 1.3.配置文件
 
+   1.3.1.服务端生成的keystore
+
+    server.ssl.key-store: src/main/resources/servers.keystore
+    server.ssl.key-store-password: 123456     
+
+ 
+ 
 2.双向认证
 
  2.1.生成Server端证书：
 
-     keytool -genkey -keyalg RSA -dname "cn=localhost,ou=none,o=none,l=shanghai,st=shanghai,c=cn" -alias server -keypass 
-123456 -keystore servers.keystore -storepass 123456 -validity 3650
+     keytool -genkey -keyalg RSA -dname "cn=localhost,ou=none,o=none,l=shanghai,st=shanghai,c=cn" -alias server -keypass 123456 -keystore servers.keystore -storepass 123456 -validity 3650
 
  2.2.生成客户端证书:
 
@@ -34,18 +42,20 @@ https单双向认证：
 
      keytool -list -keystore server.keystore
 
-3.客户端安装client.p12
+ 2.6.客户端安装client.p12
 
-4.配置文件
+ 2.7.配置文件
 
-  服务端生成的keystore
+  2.7.1.服务端生成的keystore
 
     server.ssl.key-store: src/main/resources/servers.keystore
     server.ssl.key-store-password: 123456
 
-  客户端导入到服务端生成的Keystore
+  2.7.2.客户端导入到服务端生成的Keystore
 
     server.ssl.trust-store=src/main/resources/clientxx.keystore
     server.ssl.trust-store-password=123456
-
-5.启动项目后在页面访问https://ip:8443
+   2.7.3.证书校验
+   
+    server.ssl.client-auth=need
+3.启动项目后在页面访问https://ip:8443
