@@ -1,0 +1,30 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# eclipse ignore
+.settings
+.project
+.classpath
+.tomcatplugin
+logPath_IS_UNDEFINED
+*.gz
+disconf
+
+
+# maven ignore
+target
+build
+
+# other ignore
+*.log
+*.tmp
+Thumbs.db
+*.DS_Store
+*.lck
