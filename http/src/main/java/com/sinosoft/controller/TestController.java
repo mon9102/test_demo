@@ -132,6 +132,8 @@ public class TestController {
                 input = FileUtils.readFileToString(paramFile);
             }
             if (gpg.equalsIgnoreCase("1")) {
+                String input1 = FileUtils.readFileToString(paramFile);
+                log.info("请求报文.........."+input1);
                 File keyInFile = new File(publicKey);
                 FileInputStream keyIn = new FileInputStream(keyInFile);
                 FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
@@ -140,7 +142,7 @@ public class TestController {
                 log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
                 input = FileUtils.readFileToString(encryptFile);
                 //input = input.substring(49, input.length()-27);
-                log.info(input);
+                log.info("加密的报文"+input);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
