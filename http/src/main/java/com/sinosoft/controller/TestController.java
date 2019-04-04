@@ -95,6 +95,7 @@ public class TestController {
                 break;
 
         }
+//        return param;
         https.init(keyStore, passWord);
         String re = https.post(url, header, param);
         return re;
@@ -142,7 +143,12 @@ public class TestController {
                 pgu.encryptFile(outputFile, fileName, pgu.readPublicKey(keyIn), true, true);
                 File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
                 log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
-                input = FileUtils.readFileToString(encryptFile);
+                PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
+                File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
+                //input = FileUtils.readFileToString(encryptFile);
+                log.info(FileUtils.readFileToString(encryptFile));
+                input = FileUtils.readFileToString(signatureFile);
+                log.info(FileUtils.readFileToString(signatureFile));
                 //input = input.substring(49, input.length()-27);
                 log.info("加密的报文"+input);
             }
