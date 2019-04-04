@@ -43,6 +43,8 @@ public class TestController {
     PgpUtils pgu;
     @Value("${publicKey}")
     private String publicKey;
+    @Value("${privateKey}")
+    private String privateKey;
     @Value("${file5}")
     private String file5;
     //url
