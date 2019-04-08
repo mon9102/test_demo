@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class HttpClientforSSL {
+public class HttpClientforSSLOne implements HttpClientforSSLInterface{
 
     public static HttpClientConnectionManager CONNECTION_MANAGER = null;
 
@@ -51,24 +51,26 @@ public class HttpClientforSSL {
      * @param trustStorePass
      * @throws Exception
      */
-    public void init(String keyStoreFile, String keyStorePass) throws Exception {
-//                     String trustStoreFile, String trustStorePass) throws Exception {
+    
+    @Override
+    public void init(String keyStoreFile, String keyStorePass,
+                     String trustStoreFile, String trustStorePass) throws Exception {
         if (CONNECTION_MANAGER==null){
         System.out.println("init conection pool...");
 
 //        InputStream ksis = new FileInputStream(new File(keyStoreFile));
-//        InputStream tsis = new FileInputStream(new File(trustStoreFile));
+        InputStream tsis = new FileInputStream(new File(trustStoreFile));
 
 //        KeyStore ks = KeyStore.getInstance("JKS");//("PKCS12");
 //        ks.load(ksis, keyStorePass.toCharArray());
 
-//        KeyStore ts = KeyStore.getInstance("JKS");
-//        ts.load(tsis, trustStorePass.toCharArray());
+        KeyStore ts = KeyStore.getInstance("JKS");
+        ts.load(tsis, trustStorePass.toCharArray());
 
         SSLContext sslContext = SSLContexts.custom()
     //            .loadKeyMaterial(ks, keyStorePass.toCharArray())
                 // 如果有 服务器证书
-                .loadTrustMaterial(new File(keyStoreFile), keyStorePass.toCharArray())//, new TrustSelfSignedStrategy())
+                .loadTrustMaterial(ts, new TrustSelfSignedStrategy())
                 // 如果没有服务器证书，可以采用自定义 信任机制
                 // .loadTrustMaterial(null, new TrustStrategy() {
                 //
@@ -120,6 +122,8 @@ public class HttpClientforSSL {
     }
     
     
+    
+    @Override
     public  String post(String url,  Map<String, String> headers,
                         String jsonStr)throws Exception {
         String re = null;
@@ -169,35 +173,35 @@ public class HttpClientforSSL {
     }
 
     public static void main(String[] args) {
-        System.setProperty("javax.net.debug", "ssl,handshake");
-
-        // 服务地址
-        String url = "https://10.11.22.228:8443";
-        // 服务参数，这里接口的参数采用 json 格式传递
-        String params = "{\"merchantCode\": \"www.demo.com\","
-                + "\"sessionId\": \"10000011\"," + "\"userName\": \"jack\","
-                + "\"idNumber\": \"432652515\"," + "\"cardNo\": \"561231321\","
-                + "\"phoneNo\": \"\"}";
-        // 私钥证书
-        String keyStoreFile = "/servers.keystore";//"D:\\Program Files\\Java\\jdk1.8.0_191\\jre\\lib\\security\\client.p12";
-        String keyStorePass = "123456";
-
-//        // 配置信任证书库及密码
-//        String trustStoreFile = "D:\\Program Files\\Java\\jdk1.8.0_191\\jre\\lib\\security\\cacerts";
-//        String trustStorePass = "changeit";
-
-        HttpClientforSSL obj = new HttpClientforSSL();
-        try {
-            obj.init(keyStoreFile, keyStorePass);//, trustStoreFile, trustStorePass);
-           String res =  obj.post(url,null, params);
-            System.out.println(res);
-//            for (int i = 0; i < 10; i++) {
-//                obj.post(url, params);
-//            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        System.setProperty("javax.net.debug", "ssl,handshake");
+//
+//        // 服务地址
+//        String url = "https://10.11.22.228:8443";
+//        // 服务参数，这里接口的参数采用 json 格式传递
+//        String params = "{\"merchantCode\": \"www.demo.com\","
+//                + "\"sessionId\": \"10000011\"," + "\"userName\": \"jack\","
+//                + "\"idNumber\": \"432652515\"," + "\"cardNo\": \"561231321\","
+//                + "\"phoneNo\": \"\"}";
+//        // 私钥证书
+//        String keyStoreFile = "/servers.keystore";//"D:\\Program Files\\Java\\jdk1.8.0_191\\jre\\lib\\security\\client.p12";
+//        String keyStorePass = "123456";
+//
+////        // 配置信任证书库及密码
+////        String trustStoreFile = "D:\\Program Files\\Java\\jdk1.8.0_191\\jre\\lib\\security\\cacerts";
+////        String trustStorePass = "changeit";
+//
+//        HttpClientforSSLOne obj = new HttpClientforSSLOne();
+//        try {
+//            obj.init(keyStoreFile, keyStorePass);//, trustStoreFile, trustStorePass);
+//           String res =  obj.post(url,null, params);
+//            System.out.println(res);
+////            for (int i = 0; i < 10; i++) {
+////                obj.post(url, params);
+////            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
 

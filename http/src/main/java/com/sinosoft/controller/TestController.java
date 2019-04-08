@@ -2,7 +2,9 @@ package com.sinosoft.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.sinosoft.util.HttpClientforSSL;
+import com.sinosoft.HttpClientforSSLConfig;
+import com.sinosoft.util.HttpClientforSSLInterface;
+import com.sinosoft.util.HttpClientforSSLOne;
 import com.sinosoft.util.PgpUtils;
 import io.swagger.annotations.*;
 import java.io.File;
@@ -32,12 +34,18 @@ public class TestController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     //ssl
-    @Value("${keyStore}")
-    private String keyStore;
-    @Value("${passWord}")
-    private String passWord;
+    @Value("${keyStoreFile}")
+    private String keyStoreFile;
+    @Value("${keyStorePass}")
+    private String keyStorePass;
+    @Value("${trustStoreFile}")
+    private String trustStoreFile;
+    @Value("${trustStorePass}")
+    private String trustStorePass;
+    @Value("${Dual}")
+    private String dual;
     @Autowired
-    HttpClientforSSL https;
+    HttpClientforSSLConfig httpConfig;
     //gpg
     @Autowired
     PgpUtils pgu;
@@ -96,7 +104,8 @@ public class TestController {
 
         }
 //        return param;
-        https.init(keyStore, passWord);
+        HttpClientforSSLInterface https = httpConfig.getHttpClientforSSL(dual);
+        https.init(keyStoreFile, keyStorePass, trustStoreFile, trustStorePass);
         String re = https.post(url, header, param);
         return re;
     }
