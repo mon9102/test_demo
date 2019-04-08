@@ -1,6 +1,3 @@
-orgId : DBTCQ
-apiKey : d0cc814c-c6c5-4f6a-b1d9-8e866c3a75cf
-Content-Type : application/json
 {
 "header":{
 "msgId":"SG70123987456",
@@ -13,7 +10,7 @@ Content-Type : application/json
 "txnDate":"2017-01-26",
 "txnCcy":"HKD",
 "txnAmount":"1063.5",
-"purposeOfPayment":" CXBSNS ",
+"purposeOfPayment":"CXBSNS",
 "senderParty":{
 "name":"CADIS LTD",
 "accountNo":"0123456789"
@@ -27,17 +24,15 @@ Content-Type : application/json
 {"address":"03-123"},
 {"address":"S(018982)"}],
 "proxyType" : "M",
-"proxyType":”+852-12345678”
+"proxyValue":"+852-59617678"
 },
 "adviseDelivery":{
 "mode":"ES",
 "emails":[
-{"email":"johntan@john.com"},
-{"email":"john.tan@hmail.com"}
+{"email":"eadvrpuser4@uat1bank.dbs.com"}
 ],
 "phoneNumbers":[
-{"phoneNumber":"+852-12345678"},
-{"phoneNumber":"+852-12345678"}
+{"phoneNumber":"+852-59617678"}
 ]
 },
 "rmtInf":{
