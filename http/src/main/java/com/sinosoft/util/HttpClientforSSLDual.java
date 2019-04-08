@@ -82,7 +82,7 @@ public class HttpClientforSSLDual implements HttpClientforSSLInterface{
                 // })
                 .build();
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-                sslContext, new String[]{"TLSv1"}, null,
+                sslContext, new String[] { "TLSv1.2" }, null,
                 SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 
         Registry<ConnectionSocketFactory> registry = RegistryBuilder
