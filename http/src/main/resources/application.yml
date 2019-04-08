@@ -15,6 +15,7 @@ passWord: 123456
 #publicKey: /pubKey.asc  
 publicKey: /DBSSG_EN_PUBLIC.asc
 file5: /file5.txt
+privateKey: /dbs_upgp_secret.asc
 
 #url
 #url5: https://10.11.22.228:8443/getRequestInfo

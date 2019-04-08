@@ -43,6 +43,8 @@ public class TestController {
     PgpUtils pgu;
     @Value("${publicKey}")
     private String publicKey;
+    @Value("${privateKey}")
+    private String privateKey;
     @Value("${file5}")
     private String file5;
     //url
@@ -93,6 +95,7 @@ public class TestController {
                 break;
 
         }
+//        return param;
         https.init(keyStore, passWord);
         String re = https.post(url, header, param);
         return re;
@@ -132,15 +135,22 @@ public class TestController {
                 input = FileUtils.readFileToString(paramFile);
             }
             if (gpg.equalsIgnoreCase("1")) {
+                String input1 = FileUtils.readFileToString(paramFile);
+                log.info("请求报文.........."+input1);
                 File keyInFile = new File(publicKey);
                 FileInputStream keyIn = new FileInputStream(keyInFile);
                 FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
                 pgu.encryptFile(outputFile, fileName, pgu.readPublicKey(keyIn), true, true);
                 File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
                 log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
-                input = FileUtils.readFileToString(encryptFile);
+                PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
+                File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
+                //input = FileUtils.readFileToString(encryptFile);
+                log.info(FileUtils.readFileToString(encryptFile));
+                input = FileUtils.readFileToString(signatureFile);
+                log.info(FileUtils.readFileToString(signatureFile));
                 //input = input.substring(49, input.length()-27);
-                log.info(input);
+                log.info("加密的报文"+input);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
