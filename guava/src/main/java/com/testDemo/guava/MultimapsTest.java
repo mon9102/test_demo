@@ -1,9 +1,14 @@
 package com.testDemo.guava;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.base.Function;
+import com.google.common.collect.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.collect.Maps.newHashMap;
 
 /**
  * @Auther: zouren
@@ -58,5 +63,25 @@ public class MultimapsTest {
         // Remove all values for a key
         myMultimap.removeAll("Fruits");
         System.out.println(myMultimap.get("Fruits")); // [] (Empty Collection!)
+    }
+
+    /**
+     * 分片集合
+     */
+    @Test
+    public void index(){
+        Map<String,String> row1 =  ImmutableMap.of("type","blog","id","292","author", "john");
+
+        Map<String,String> row2=  ImmutableMap.of("type","blog","id","291","author", "john1");
+
+        Map<String,String> row3=   ImmutableMap.of("type","new","id","391","author", "3john1");
+        Map<String,String> row4=    ImmutableMap.of("type","new","id","321","author", "2john1");
+        List<Map<String, String>> listOfMaps = Lists.newArrayList(row1,row2,row3,row4);
+        Multimap<String, Map<String, String>> partitionedMap = Multimaps.index(listOfMaps, new Function<Map<String, String>, String>() {
+	            public String apply(final Map<String, String> from) {
+                        return from.get("type");
+                   }
+	    });
+        System.out.printf(partitionedMap.toString());
     }
 }
