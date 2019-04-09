@@ -3,6 +3,7 @@ package com.testDemo.guava;
 import com.google.common.collect.*;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -36,12 +37,15 @@ public class CollectionInitTest {
     /**
      * 集合初始化
      */
+    @Test
     public void init() {
         Set<String> set = Sets.newHashSet("one", "two", "three");
 
         List<String> list = Lists.newArrayList("one", "two", "three");
-
+//        ImmutableMap 为不可变的，不能增加长度
         Map<String, String> map = ImmutableMap.of("ON", "TRUE", "OFF", "FALSE");
+//        map.putIfAbsent("a","a");//报错
+//        map.putIfAbsent("ON","FALSE");//可以更新
 
         //2,简化集合的初始化
         List<Person> personList2 = Lists.newArrayList(new Person(1, 1, "a", "46546", 1, 20),

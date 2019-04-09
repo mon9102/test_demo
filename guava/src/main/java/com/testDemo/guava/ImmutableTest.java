@@ -2,6 +2,7 @@ package com.testDemo.guava;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import java.util.Set;
  * @Description: 不可变集合,不可变集合的使用和普通集合一样，只是不能使用他们的add，remove等修改集合的方法。
  */
 public class ImmutableTest {
+    @Test
     public void createImmutableSet(){
         //builder
         Set<String> immutableNamedColors = ImmutableSet.<String>builder()
@@ -20,7 +22,7 @@ public class ImmutableTest {
 //        ImmutableSet.of("red","green","black","white","grey");
         //使用copyOf静态方法创建
 //        ImmutableSet.copyOf(new String[]{"red","green","black","white","grey"});
-        //immutableNamedColors.add("abc");
+//        immutableNamedColors.add("abc");
         for (String color : immutableNamedColors) {
             System.out.println(color);
         }
