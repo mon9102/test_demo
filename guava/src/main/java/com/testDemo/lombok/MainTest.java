@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * @Auther: zouren
  * @Date: 2019/4/9 16:18
- * @Description:
+ * @Description: ctrl+F12查看实现的方法
  */
 @Slf4j
 public class MainTest {
@@ -28,7 +28,7 @@ public class MainTest {
     }
 
     /**
-     *  @Cleanup 自动化关闭流，相当于 jdk看的 try with resource
+     *  @Cleanup 自动化关闭流，相当于 jdk中的 try catch  finally中close对象
      *  @SneakyThrows 当我们需要抛出异常，在当前方法上调用，不用显示的在方法名后面写 throw
      */
     @Test
