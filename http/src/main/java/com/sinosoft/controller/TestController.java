@@ -88,7 +88,7 @@ public class TestController {
 
 
         header.put("timeStamp", timeStamp);
-
+        log.info("request header::"+header.toString());
 
         switch (id) {
             case "6":
@@ -159,21 +159,21 @@ public class TestController {
 
                 JSONObject testheader = test.getJSONObject("header");
                 testheader.put("timeStamp", header.getOrDefault("timeStamp",""));
-                log.info("请求报文.........."+input1);
+                log.info("请求体加密前::"+input1);
                 File keyInFile = new File(publicKey);
                 FileInputStream keyIn = new FileInputStream(keyInFile);
                 FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
                 pgu.encryptFile(outputFile, fileName, pgu.readPublicKey(keyIn), true, true);
                 File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
-                log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
+//                log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
                 PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
                 File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
                 //input = FileUtils.readFileToString(encryptFile);
-                log.info(FileUtils.readFileToString(encryptFile));
+                log.info("请求体加密后::"+FileUtils.readFileToString(encryptFile));
                 input = FileUtils.readFileToString(signatureFile);
-                log.info(FileUtils.readFileToString(signatureFile));
+                log.info("请求体加密后进行签名::"+FileUtils.readFileToString(signatureFile));
                 //input = input.substring(49, input.length()-27);
-                log.info("加密的报文"+input);
+//                log.info("加密的报文"+input);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
