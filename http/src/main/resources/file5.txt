@@ -1,7 +1,7 @@
 {
 "header":{
 "msgId":"SG70123987456",
-"orgId":"0123",
+"orgId":"HKALICL",
 "timeStamp":"2017-01-26T16:16:43.567"
 },
 "txnInfo":{
@@ -13,7 +13,7 @@
 "purposeOfPayment":"CXBSNS",
 "senderParty":{
 "name":"CADIS LTD",
-"accountNo":"0123456789"
+"accountNo":"000000499"
 },
 "receivingParty":{
 "name":"JOHN TAN",

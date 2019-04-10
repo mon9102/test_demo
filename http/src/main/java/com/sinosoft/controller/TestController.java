@@ -77,7 +77,7 @@ public class TestController {
         
         Map<String, String> header = new HashMap<String, String>();
         header.put("msgId", "SG70123987456");
-        header.put("orgId", "0123");
+        header.put("orgId", "HKALICL");
         header.put("timeStamp", "2017-01-26T16:16:43.567");
 
         switch (id) {
