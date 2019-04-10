@@ -76,6 +76,7 @@ public class TestController {
     })
     @RequestMapping("/{id}/{gpg}/{msgId}")
     public String test(@PathVariable String id, @PathVariable String gpg,@PathVariable String msgId) throws Exception {
+        String keyId = "2c147fb2-1333-4c3d-8310-afada680f4b4";
         String param = null;
         String url = "eeeeee";
         msgId = StringUtils.isNotBlank(msgId)?msgId:"20190410HK001";
@@ -83,7 +84,7 @@ public class TestController {
         Map<String, String> header = new HashMap<String, String>();
         header.put("msgId", msgId);
         header.put("orgId", "HKALICL");
-        header.put("keyId", "2c147fb2-1333-4c3d-8310-afada680f4b4");
+        header.put("keyId", keyId);
         LocalDateTime Idt4= LocalDateTime.now();
 
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -111,6 +112,13 @@ public class TestController {
                 param = param9(gpg);
                 url = url5;
                 break;
+            case "verification":
+                keyId="de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
+                header.put("keyId", keyId);
+                param = paramverification(gpg,header);
+                url = "https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification";
+
+                break;
             default:
                 param = param5(gpg,header);
                 url = url5;
@@ -121,7 +129,12 @@ public class TestController {
         HttpClientforSSLInterface https = httpConfig.getHttpClientforSSL(dual);
         https.init(keyStoreFile, keyStorePass, trustStoreFile, trustStorePass);
         String re = https.post(url, header, param);
+        log.info("请求成功返回::"+re);
         return re;
+    }
+
+    private String paramverification(String gpg, Map<String, String> header) {
+        return pgp(file5, gpg, header);
     }
 
     /**
@@ -173,15 +186,11 @@ public class TestController {
                 FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
                 pgu.encryptFile(outputFile, fileName, pgu.readPublicKey(keyIn), true, true);
                 File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
-//                log.info("-----------" + encryptFile.getAbsolutePath() + "-----------");
                 PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
                 File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
-                //input = FileUtils.readFileToString(encryptFile);
                 log.info("请求体加密后::"+FileUtils.readFileToString(encryptFile));
                 input = FileUtils.readFileToString(signatureFile);
                 log.info("请求体加密后进行签名::"+input);
-                //input = input.substring(49, input.length()-27);
-//                log.info("加密的报文"+input);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
