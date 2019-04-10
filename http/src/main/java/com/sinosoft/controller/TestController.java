@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
@@ -76,9 +78,17 @@ public class TestController {
         
         
         Map<String, String> header = new HashMap<String, String>();
-        header.put("msgId", "SG70123987456");
+        header.put("msgId", "20190410HK001");
         header.put("orgId", "HKALICL");
-        header.put("timeStamp", "2017-01-26T16:16:43.567");
+        LocalDateTime Idt4= LocalDateTime.now();
+
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String timeStamp = Idt4.format(formatter).replaceAll(" ", "T");
+
+
+
+        header.put("timeStamp", timeStamp);
+
 
         switch (id) {
             case "6":
@@ -98,7 +108,7 @@ public class TestController {
                 url = url5;
                 break;
             default:
-                param = param5(gpg);
+                param = param5(gpg,header);
                 url = url5;
                 break;
 
@@ -116,27 +126,27 @@ public class TestController {
      * @Return: java.util.Map<java.lang.String,java.lang.String>
      * @CreateDate: 2019/4/1 11:21
      */
-    private String param5(String gpg) {
-        return pgp(file5, gpg);
+    private String param5(String gpg,Map<String, String> header) {
+        return pgp(file5, gpg, header);
     }
 
     private String param6(String gpg) {
-        return pgp(file5, gpg);
+        return null;
     }
 
     private String param7(String gpg) {
-        return pgp(file5, gpg);
+        return null;
     }
 
     private String param8(String gpg) {
-        return pgp(file5, gpg);
+        return null;
     }
 
     private String param9(String gpg) {
-        return pgp(file5, gpg);
+        return null;
     }
 
-    private String pgp(String fileName, String gpg) {
+    private String pgp(String fileName, String gpg,Map<String, String> header) {
         String input = "e";
         File paramFile = new File(fileName);
         try {
@@ -145,6 +155,10 @@ public class TestController {
             }
             if (gpg.equalsIgnoreCase("1")) {
                 String input1 = FileUtils.readFileToString(paramFile);
+                JSONObject test = JSONObject.parseObject(input1);
+
+                JSONObject testheader = test.getJSONObject("header");
+                testheader.put("timeStamp", header.getOrDefault("timeStamp",""));
                 log.info("请求报文.........."+input1);
                 File keyInFile = new File(publicKey);
                 FileInputStream keyIn = new FileInputStream(keyInFile);
