@@ -107,6 +107,39 @@
         <artifactId>commons-lang3</artifactId>
         <version>3.8.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/cryptix-jce/cryptix-jce-provider -->
+    <dependency>
+        <groupId>cryptix-jce</groupId>
+        <artifactId>cryptix-jce-provider</artifactId>
+        <version>20050328</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/main/resources/lib/cryptix-jce-provider-20050328.jar</systemPath>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/cryptix-openpgp/cryptix-message-api -->
+    <dependency>
+        <groupId>cryptix-openpgp</groupId>
+        <artifactId>cryptix-message-api</artifactId>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/main/resources/lib/cryptix-message-api-20050405.jar</systemPath>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/cryptix-openpgp/cryptix-openpgp-provider -->
+    <dependency>
+        <groupId>cryptix-openpgp</groupId>
+        <artifactId>cryptix-openpgp-provider</artifactId>
+        <version>20050405</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/main/resources/lib/cryptix-openpgp-provider-20050405.jar</systemPath>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/cryptix-openpgp/cryptix-pki-api -->
+    <dependency>
+        <groupId>cryptix-openpgp</groupId>
+        <artifactId>cryptix-pki-api</artifactId>
+        <version>20050405</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/main/resources/lib/cryptix-pki-api-20050405.jar</systemPath>
+    </dependency>
+
+
 
 </dependencies>
     <build>
