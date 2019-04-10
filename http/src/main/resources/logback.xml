@@ -10,9 +10,10 @@
     </appender>
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>D:\\JavaWebLogs\\testHttps\\testlogs</file>
+        <file>D:/fps_test/logs\\testlogs</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</pattern>
+            <!--%logger{35}-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %caller{1}  - %msg %n</pattern>
             <charset>UTF-8</charset> <!-- 此处设置字符集 -->
         </encoder>
 
@@ -41,7 +42,10 @@
             <charset>UTF-8</charset>
         </encoder>
     </appender>
-
+    <!-- additivity="false"-->
+    <logger name="org.apache.http" level="DEBUG" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"></appender-ref>
         <appender-ref ref="FILE"></appender-ref>
