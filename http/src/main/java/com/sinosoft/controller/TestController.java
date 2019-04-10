@@ -179,7 +179,7 @@ public class TestController {
                 //input = FileUtils.readFileToString(encryptFile);
                 log.info("请求体加密后::"+FileUtils.readFileToString(encryptFile));
                 input = FileUtils.readFileToString(signatureFile);
-                log.info("请求体加密后进行签名::"+FileUtils.readFileToString(signatureFile));
+                log.info("请求体加密后进行签名::"+input);
                 //input = input.substring(49, input.length()-27);
 //                log.info("加密的报文"+input);
             }
