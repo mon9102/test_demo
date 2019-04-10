@@ -272,7 +272,7 @@ public class TestController {
         bcpgpDecryptor.decryptandVerifyFile(encryptedInputFile, plainOutputFile, publicKeyFile, privateKeyFile, passPhrase);
         File reFile = new File(plainOutputFile);
         String re = FileUtils.readFileToString(reFile);
-        log.info("返回体加密前::" + re);
+        log.info("返回体解密::" + re);
         return re;
     }
 
