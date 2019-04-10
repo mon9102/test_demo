@@ -1,0 +1,2 @@
+gpg -a -r D1FD1F90FCD8A91B94F784E86EDC979CE245DAFF -o C:\Users\wangh\Desktop\a.en.txt -e C:\Users\wangh\Desktop\a.txt
+gpg -a --local-user 5723B1B056038DF1E6933EF09BD34A1634126A80 -o C:\Users\wangh\Desktop\a.en.txt.asc -s C:\Users\wangh\Desktop\a.en.txt
