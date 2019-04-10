@@ -11,12 +11,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -71,14 +74,14 @@ public class TestController {
         ,
             @ApiImplicitParam(name = "gpg", value = "是否使用加密", paramType = "query", dataType = "String", example = "0,1", defaultValue = "0")
     })
-    @RequestMapping("/{id}/{gpg}")
-    public String test(@PathVariable String id, @PathVariable String gpg) throws Exception {
+    @RequestMapping("/{id}/{gpg}/{msgId}")
+    public String test(@PathVariable String id, @PathVariable String gpg,@PathVariable String msgId) throws Exception {
         String param = null;
         String url = "eeeeee";
-        
+        msgId = StringUtils.isNotBlank(msgId)?msgId:"20190410HK001";
         
         Map<String, String> header = new HashMap<String, String>();
-        header.put("msgId", "20190410HK001");
+        header.put("msgId", msgId);
         header.put("orgId", "HKALICL");
         header.put("keyId", "2c147fb2-1333-4c3d-8310-afada680f4b4");
         LocalDateTime Idt4= LocalDateTime.now();
@@ -160,7 +163,11 @@ public class TestController {
 
                 JSONObject testheader = test.getJSONObject("header");
                 testheader.put("timeStamp", header.getOrDefault("timeStamp",""));
+                testheader.put("msgId", header.getOrDefault("msgId",""));
+
+                input1 = testheader.toString();
                 log.info("请求体加密前::"+input1);
+                FileUtils.write(new File(fileName),input1, Charset.defaultCharset());
                 File keyInFile = new File(publicKey);
                 FileInputStream keyIn = new FileInputStream(keyInFile);
                 FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
