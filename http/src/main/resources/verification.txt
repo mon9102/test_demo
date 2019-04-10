@@ -1,0 +1,17 @@
+{
+    "header": {
+        "msgId": "20190410HK001",
+        "orgId": "HKALICL",
+        "timeStamp": "2019-04-10T09:00:00.000",
+        "bankCtryCode": "HK",
+        "accountNo": "000000499",
+        "accountCcy": "HKD"
+    },
+    "enqInfo": {
+        "proxyType": "E",
+        "proxyValue": "HKD645329791@dbs.com",
+        "bankId": "016",
+        "accountName": "CHAN TAI MAN PETER",
+        "purposeCode": "PAYM"
+    }
+}
