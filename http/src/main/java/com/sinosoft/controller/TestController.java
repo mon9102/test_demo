@@ -80,6 +80,7 @@ public class TestController {
         Map<String, String> header = new HashMap<String, String>();
         header.put("msgId", "20190410HK001");
         header.put("orgId", "HKALICL");
+        header.put("keyId", "2c147fb2-1333-4c3d-8310-afada680f4b4");
         LocalDateTime Idt4= LocalDateTime.now();
 
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
