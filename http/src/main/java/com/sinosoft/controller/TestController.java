@@ -3,7 +3,9 @@ package com.sinosoft.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sinosoft.HttpClientforSSLConfig;
+import com.sinosoft.pgp.BCPGPDecryptor;
 import com.sinosoft.pgp.BCPGPEncryptor;
+import com.sinosoft.pgp.Decrypt;
 import com.sinosoft.pgp.Encrypt;
 import com.sinosoft.util.HttpClientforSSLInterface;
 import com.sinosoft.util.HttpClientforSSLOne;
@@ -13,6 +15,7 @@ import io.swagger.annotations.*;
 import java.io.*;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.openpgp.PGPException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.Charset;
+import java.security.NoSuchProviderException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,36 +69,33 @@ public class TestController {
     @Value("${url5}")
     private String url5;
 
-    
-    
-    
+
     @ApiOperation("test")
     @ApiParam(name = "num", value = ":56789", required = true)
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", value = "测试号", paramType = "query", dataType = "String", example = "5,6,7,8,9", defaultValue = "5")
-        ,
+            @ApiImplicitParam(name = "id", value = "测试号", paramType = "query", dataType = "String", example = "5,6,7,8,9", defaultValue = "5")
+            ,
             @ApiImplicitParam(name = "gpg", value = "是否使用加密", paramType = "query", dataType = "String", example = "0,1", defaultValue = "0")
     })
     @RequestMapping("/{id}/{gpg}/{msgId}")
-    public String test(@PathVariable String id, @PathVariable String gpg,@PathVariable String msgId) throws Exception {
+    public String test(@PathVariable String id, @PathVariable String gpg, @PathVariable String msgId) throws Exception {
         String keyId = "2c147fb2-1333-4c3d-8310-afada680f4b4";
         String param = null;
         String url = "eeeeee";
-        msgId = StringUtils.isNotBlank(msgId)?msgId:"20190410HK001";
-        
+        msgId = StringUtils.isNotBlank(msgId) ? msgId : "20190410HK001";
+
         Map<String, String> header = new HashMap<String, String>();
         header.put("msgId", msgId);
         header.put("orgId", "HKALICL");
         header.put("keyId", keyId);
-        LocalDateTime Idt4= LocalDateTime.now();
+        LocalDateTime Idt4 = LocalDateTime.now();
 
-        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String timeStamp = Idt4.format(formatter).replaceAll(" ", "T");
 
 
-
         header.put("timeStamp", timeStamp);
-        log.info("request header::"+header.toString());
+        log.info("request header::" + header.toString());
 
         switch (id) {
             case "6":
@@ -113,14 +115,14 @@ public class TestController {
                 url = url5;
                 break;
             case "verification":
-                keyId="de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
+                keyId = "de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
                 header.put("keyId", keyId);
-                param = paramverification(gpg,header);
+                param = paramverification(gpg, header);
                 url = "https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification";
 
                 break;
             default:
-                param = param5(gpg,header);
+                param = param5(gpg, header);
                 url = url5;
                 break;
 
@@ -129,7 +131,11 @@ public class TestController {
         HttpClientforSSLInterface https = httpConfig.getHttpClientforSSL(dual);
         https.init(keyStoreFile, keyStorePass, trustStoreFile, trustStorePass);
         String re = https.post(url, header, param);
-        log.info("请求成功返回::"+re);
+        log.info("请求成功返回::" + re);
+        File f5 = new File(file5);
+        File reFlie = new File(f5.getParent() + "re_ENCRYPT_Emp.asc");
+        FileUtils.write(reFlie, re, Charset.defaultCharset());
+        re = reNewPGP(reFlie);
         return re;
     }
 
@@ -140,10 +146,10 @@ public class TestController {
     /**
      * @Description: 服文5请求
      * @Param: gpg 1为使用gpg加密
-     * @Return: java.util.Map<java.lang.String,java.lang.String>
+     * @Return: java.util.Map<java.lang.String, java.lang.String>
      * @CreateDate: 2019/4/1 11:21
      */
-    private String param5(String gpg,Map<String, String> header) {
+    private String param5(String gpg, Map<String, String> header) {
         return pgp(file5, gpg, header);
     }
 
@@ -163,7 +169,7 @@ public class TestController {
         return null;
     }
 
-    private String pgp(String fileName, String gpg,Map<String, String> header) {
+    private String pgp(String fileName, String gpg, Map<String, String> header) {
         String input = "e";
         File paramFile = new File(fileName);
         try {
@@ -175,12 +181,12 @@ public class TestController {
                 JSONObject test = JSONObject.parseObject(input1);
 
                 JSONObject testheader = test.getJSONObject("header");
-                testheader.put("timeStamp", header.getOrDefault("timeStamp",""));
-                testheader.put("msgId", header.getOrDefault("msgId",""));
+                testheader.put("timeStamp", header.getOrDefault("timeStamp", ""));
+                testheader.put("msgId", header.getOrDefault("msgId", ""));
 
                 input1 = test.toString();
-                FileUtils.write(new File(fileName),input1, Charset.defaultCharset());
-                input = newPGP(input1,paramFile);
+                FileUtils.write(new File(fileName), input1, Charset.defaultCharset());
+                input = newPGP(input1, paramFile);
 
             }
         } catch (Exception e) {
@@ -189,8 +195,9 @@ public class TestController {
         return input;
 
     }
+
     private String newPGP(String input1, File paramFile) throws Exception {
-        log.info("newPGP请求体加密前::"+input1);
+        log.info("newPGP请求体加密前::" + input1);
         //加密
         //创建加密类
         Encrypt encrypt = new Encrypt();
@@ -215,28 +222,59 @@ public class TestController {
         //私钥密码
         String passPhrase = "HuvHGF0932weBM766";
         //加密并签名方法
-        bcpgpEnryptor.encryptAndSignFile(plainInputFile,encryptedOutputFile,publicKeyFile,privateKeyFile,passPhrase);
+        bcpgpEnryptor.encryptAndSignFile(plainInputFile, encryptedOutputFile, publicKeyFile, privateKeyFile, passPhrase);
         File encryptFile = new File(encryptedOutputFile);
 
         input1 = FileUtils.readFileToString(encryptFile);
-        log.info("newPGP请求体加密后进行签名::"+input1);
+        log.info("newPGP请求体加密后进行签名::" + input1);
         return input1;
     }
-     private String oldPGP(String input1, File paramFile) throws Exception {
-         log.info("请求体加密前::"+input1);
-         File keyInFile = new File(publicKey);
-         FileInputStream keyIn = new FileInputStream(keyInFile);
 
-         FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
-         pgu.encryptFile(outputFile, paramFile.getPath(), pgu.readPublicKey(keyIn), true, true);
-         File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
-         PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
-         File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
-         log.info("请求体加密后::"+FileUtils.readFileToString(encryptFile));
-         input1 = FileUtils.readFileToString(signatureFile);
-         log.info("请求体加密后进行签名::"+input1);
-         return input1;
-     }
+    private String oldPGP(String input1, File paramFile) throws Exception {
+        log.info("请求体加密前::" + input1);
+        File keyInFile = new File(publicKey);
+        FileInputStream keyIn = new FileInputStream(keyInFile);
+
+        FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
+        pgu.encryptFile(outputFile, paramFile.getPath(), pgu.readPublicKey(keyIn), true, true);
+        File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
+        PgpUtils.signatureCreate(encryptFile.getAbsolutePath(), privateKey, paramFile.getParent() + "SIGNATURE" + paramFile.getName(), "HuvHGF0932weBM766");
+        File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
+        log.info("请求体加密后::" + FileUtils.readFileToString(encryptFile));
+        input1 = FileUtils.readFileToString(signatureFile);
+        log.info("请求体加密后进行签名::" + input1);
+        return input1;
+    }
+
+    private String reNewPGP(File reFlie) throws IOException, PGPException, NoSuchProviderException {
+        //解密
+        //创建解密类
+        Decrypt decrypt = new Decrypt();
+        //公钥路径
+        decrypt.setPublicKeyFilePath(publicKey);
+        decrypt.setVerify(true);
+        //私钥路径
+        decrypt.setPrivateKeyFilePath(privateKey);
+        //私钥密码
+        decrypt.setPrivateKeyPassword("HuvHGF0932weBM766");
+        BCPGPDecryptor bcpgpDecryptor = new BCPGPDecryptor(decrypt);
+        //解密文件路径
+        String encryptedInputFile = reFlie.getPath();
+        //解密后文件路径
+        String plainOutputFile = reFlie.getParent() + "re_ENCRYPT_Emp.txt";
+        //公钥路径
+        String publicKeyFile = publicKey;
+        //私钥路径
+        String privateKeyFile = privateKey;
+        //密码
+        String passPhrase = "HuvHGF0932weBM766";
+        //验证并解密方法
+        bcpgpDecryptor.decryptandVerifyFile(encryptedInputFile, plainOutputFile, publicKeyFile, privateKeyFile, passPhrase);
+        File reFile = new File(plainOutputFile);
+        String re = FileUtils.readFileToString(reFile);
+        log.info("返回体加密前::" + re);
+        return re;
+    }
 
     public static void main(String[] args) {
 
