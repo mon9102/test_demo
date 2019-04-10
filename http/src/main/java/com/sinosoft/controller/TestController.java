@@ -3,14 +3,14 @@ package com.sinosoft.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sinosoft.HttpClientforSSLConfig;
+import com.sinosoft.pgp.BCPGPEncryptor;
+import com.sinosoft.pgp.Encrypt;
 import com.sinosoft.util.HttpClientforSSLInterface;
 import com.sinosoft.util.HttpClientforSSLOne;
 import com.sinosoft.util.PgpUtils;
 import io.swagger.annotations.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
+import java.io.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -179,18 +179,9 @@ public class TestController {
                 testheader.put("msgId", header.getOrDefault("msgId",""));
 
                 input1 = test.toString();
-                log.info("请求体加密前::"+input1);
                 FileUtils.write(new File(fileName),input1, Charset.defaultCharset());
-                File keyInFile = new File(publicKey);
-                FileInputStream keyIn = new FileInputStream(keyInFile);
-                FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
-                pgu.encryptFile(outputFile, fileName, pgu.readPublicKey(keyIn), true, true);
-                File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
-                PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
-                File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
-                log.info("请求体加密后::"+FileUtils.readFileToString(encryptFile));
-                input = FileUtils.readFileToString(signatureFile);
-                log.info("请求体加密后进行签名::"+input);
+                input = newPGP(input1,paramFile);
+
             }
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -198,5 +189,56 @@ public class TestController {
         return input;
 
     }
+    private String newPGP(String input1, File paramFile) throws Exception {
+        log.info("请求体加密前::"+input1);
+        //加密
+        //创建加密类
+        Encrypt encrypt = new Encrypt();
+        encrypt.setArmored(true);
+        encrypt.setCheckIntegrity(true);
+        //公钥路径
+        encrypt.setPublicKeyFilePath(publicKey);
+        encrypt.setSigning(true);
+        //私钥路径
+        encrypt.setPrivateKeyFilePath(privateKey);
+        //私钥密码
+        encrypt.setPrivateKeyPassword("HuvHGF0932weBM766");
+        BCPGPEncryptor bcpgpEnryptor = new BCPGPEncryptor(encrypt);
+        //源文件地址
+        String plainInputFile = paramFile.getPath();
+        //加密后文件地址
+        String encryptedOutputFile = paramFile.getParent() + "ENCRYPT" + paramFile.getName();
+        //公钥路径
+        String publicKeyFile = publicKey;
+        //私钥路径
+        String privateKeyFile = privateKey;
+        //私钥密码
+        String passPhrase = "HuvHGF0932weBM766";
+        //加密并签名方法
+        bcpgpEnryptor.encryptAndSignFile(plainInputFile,encryptedOutputFile,publicKeyFile,privateKeyFile,passPhrase);
+        File encryptFile = new File(encryptedOutputFile);
 
+        input1 = FileUtils.readFileToString(encryptFile);
+        log.info("请求体加密后进行签名::"+input1);
+        return input1;
+    }
+     private String oldPGP(String input1, File paramFile) throws Exception {
+         log.info("请求体加密前::"+input1);
+         File keyInFile = new File(publicKey);
+         FileInputStream keyIn = new FileInputStream(keyInFile);
+
+         FileOutputStream outputFile = new FileOutputStream(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
+         pgu.encryptFile(outputFile, paramFile.getPath(), pgu.readPublicKey(keyIn), true, true);
+         File encryptFile = new File(paramFile.getParent() + "ENCRYPT" + paramFile.getName());
+         PgpUtils.signatureCreate(encryptFile.getAbsolutePath(),privateKey,paramFile.getParent() + "SIGNATURE" + paramFile.getName(),"HuvHGF0932weBM766");
+         File signatureFile = new File(paramFile.getParent() + "SIGNATURE" + paramFile.getName());
+         log.info("请求体加密后::"+FileUtils.readFileToString(encryptFile));
+         input1 = FileUtils.readFileToString(signatureFile);
+         log.info("请求体加密后进行签名::"+input1);
+         return input1;
+     }
+
+    public static void main(String[] args) {
+
+    }
 }
