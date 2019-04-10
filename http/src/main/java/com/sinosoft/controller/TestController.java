@@ -165,7 +165,7 @@ public class TestController {
                 testheader.put("timeStamp", header.getOrDefault("timeStamp",""));
                 testheader.put("msgId", header.getOrDefault("msgId",""));
 
-                input1 = testheader.toString();
+                input1 = test.toString();
                 log.info("请求体加密前::"+input1);
                 FileUtils.write(new File(fileName),input1, Charset.defaultCharset());
                 File keyInFile = new File(publicKey);
