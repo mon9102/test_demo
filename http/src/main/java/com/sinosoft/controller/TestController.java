@@ -190,7 +190,7 @@ public class TestController {
 
     }
     private String newPGP(String input1, File paramFile) throws Exception {
-        log.info("请求体加密前::"+input1);
+        log.info("newPGP请求体加密前::"+input1);
         //加密
         //创建加密类
         Encrypt encrypt = new Encrypt();
@@ -219,7 +219,7 @@ public class TestController {
         File encryptFile = new File(encryptedOutputFile);
 
         input1 = FileUtils.readFileToString(encryptFile);
-        log.info("请求体加密后进行签名::"+input1);
+        log.info("newPGP请求体加密后进行签名::"+input1);
         return input1;
     }
      private String oldPGP(String input1, File paramFile) throws Exception {
