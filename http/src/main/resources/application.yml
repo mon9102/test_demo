@@ -18,9 +18,12 @@ trustStorePass: 123456
 #publicKey: /pubKey.asc  
 publicKey: D:/fps_test/DBSSG_EN_PUBLIC.asc
 file5: D:/fps_test/file5.txt
+file7: D:/fps_test/file7.txt
+file9: D:/fps_test/file9.txt
 privateKey: D:/fps_test/dbs_upgp_secret.asc
 
 #url https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification
 #https://api-ideal-uat.dbs.com/rapid/hkfaster/v1/payment/initiatePayment
 #url5: https://localhost:8443/getRequestInfo
-url5: https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification
+url5: https://api-ideal-uat.dbs.com/rapid/hkfaster/v1/payment/initiatePayment
+url9: https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification
