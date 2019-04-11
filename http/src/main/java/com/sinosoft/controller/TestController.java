@@ -65,10 +65,15 @@ public class TestController {
     private String privateKey;
     @Value("${file5}")
     private String file5;
+    @Value("${file7}")
+    private String file7;
+    @Value("${file9}")
+    private String file9;
     //url
     @Value("${url5}")
     private String url5;
-
+    @Value("${url9}")
+    private String url9;
 
     @ApiOperation("test")
     @ApiParam(name = "num", value = ":56789", required = true)
@@ -95,7 +100,7 @@ public class TestController {
 
 
         header.put("timeStamp", timeStamp);
-        log.info("request header::" + header.toString());
+
 
         switch (id) {
             case "6":
@@ -103,7 +108,7 @@ public class TestController {
                 url = url5;
                 break;
             case "7":
-                param = param7(gpg);
+                param = param7(gpg, header);
                 url = url5;
                 break;
             case "8":
@@ -111,14 +116,18 @@ public class TestController {
                 url = url5;
                 break;
             case "9":
-                param = param9(gpg);
-                url = url5;
+                keyId = "de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
+                header.put("keyId", keyId);
+                header.put("orgId", "HKSYHY");
+                param = paramverification(gpg, header);
+                url = url9;
                 break;
             case "verification":
                 keyId = "de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
                 header.put("keyId", keyId);
+                header.put("orgId", "HKSYHY");
                 param = paramverification(gpg, header);
-                url = "https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification";
+                url = url9;
 
                 break;
             default:
@@ -140,7 +149,7 @@ public class TestController {
     }
 
     private String paramverification(String gpg, Map<String, String> header) {
-        return pgp(file5, gpg, header);
+        return pgp(file9, gpg, header);
     }
 
     /**
@@ -157,19 +166,18 @@ public class TestController {
         return null;
     }
 
-    private String param7(String gpg) {
-        return null;
+    private String param7(String gpg, Map<String, String> header) {
+        return pgp(file7, gpg, header);
     }
 
     private String param8(String gpg) {
         return null;
     }
 
-    private String param9(String gpg) {
-        return null;
-    }
+
 
     private String pgp(String fileName, String gpg, Map<String, String> header) {
+        log.info("request header::" + header.toString());
         String input = "e";
         File paramFile = new File(fileName);
         try {
@@ -183,7 +191,7 @@ public class TestController {
                 JSONObject testheader = test.getJSONObject("header");
                 testheader.put("timeStamp", header.getOrDefault("timeStamp", ""));
                 testheader.put("msgId", header.getOrDefault("msgId", ""));
-
+                testheader.put("orgId", header.getOrDefault("orgId", ""));
                 input1 = test.toString();
                 FileUtils.write(new File(fileName), input1, Charset.defaultCharset());
                 input = newPGP(input1, paramFile);
