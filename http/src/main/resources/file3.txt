@@ -10,13 +10,13 @@
 "txnType": "GPC",
 "txnDate": "2019-04-12",
 "txnCcy": "HKD",
-"txnAmount": "1000.00", 
+"txnAmount": "10.00", 
 "purposeOfPayment": "DDBILL",
 "senderParty": {
 "name": "JOHN TAN",
 "accountNo": "000000499",
 "ddaRef": "HKD645329791",
-"mandateId": ""
+"mandateId": "016/MNDTEDDA19041200000007"
 },
 "receivingParty": {
 "name": "Peter Chan",

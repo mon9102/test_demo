@@ -6,7 +6,7 @@
 "ctry": "HK"
 },
 "txnInfo": {
-"txnType": "DDA"
+"txnType": "DAE"
 },
 "txnEnquiry": {
 "enqAccountNo": "000000499",
