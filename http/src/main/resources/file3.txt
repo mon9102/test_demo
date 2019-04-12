@@ -1,0 +1,29 @@
+{
+"header": {
+"msgId": "HKO82F2449701656579",
+"orgId": "0123",
+"timeStamp": "2018-04-12T10:53:29.996",
+"ctry": "HK"
+},
+"txnInfo": {
+"customerReference": "",
+"txnType": "GPC",
+"txnDate": "2019-04-12",
+"txnCcy": "HKD",
+"txnAmount": "1000.00", 
+"purposeOfPayment": "DDBILL",
+"senderParty": {
+"name": "JOHN TAN",
+"accountNo": "000000499",
+"ddaRef": "HKD645329791",
+"mandateId": ""
+},
+"receivingParty": {
+"name": "Peter Chan",
+"bankId": "016",
+"bankCtryCode": "HK",
+"proxyType": "B",
+"proxyValue": "4542854201"
+}
+}
+
