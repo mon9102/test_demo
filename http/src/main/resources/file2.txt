@@ -11,5 +11,6 @@
 "txnEnquiry": {
 "enqAccountNo": "000000499",
 "accountCcy": "HKD",
-"txnRefId": ""
+"txnRefId": "HKEDDA19041200000007"
+}
 }
