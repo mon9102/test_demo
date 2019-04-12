@@ -9,7 +9,7 @@
 "txnType": "DDA"
 },
 "txnEnquiry": {
-"enqAccountNo": "0001033107019",
+"enqAccountNo": "000000499",
 "accountCcy": "HKD",
 "txnRefId": ""
 }
