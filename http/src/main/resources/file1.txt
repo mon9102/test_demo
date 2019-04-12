@@ -30,9 +30,9 @@
 "proxyValue":"4542854201",
 "bankId": "016",
 "ultimateName": "Peter Chan",
-" prvtCustomer ": [{
-" prvtCustomerId": "A1234567",
-" prvtCustomerIdType": "NIDN"
+"prvtCustomer": [{
+"prvtCustomerId": "A1234567",
+"prvtCustomerIdType": "NIDN"
 },
 {
 "prvtCustomerId": "B12345678",

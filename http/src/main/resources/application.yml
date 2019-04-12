@@ -29,5 +29,7 @@ privateKey: D:/fps_test/dbs_upgp_secret.asc
 #https://api-ideal-uat.dbs.com/rapid/hkfaster/v1/payment/initiatePayment
 #url5: https://localhost:8443/getRequestInfo
 url1: https://api-ideal-uat.dbs.com/rapid/hkfps/v1/edda/setup
+url2: https://api-ideal-uat.dbs.com/rapid/hkfps/v1/edda/status
+url3: https://api-ideal-uat.dbs.com/rapid/
 url5: https://api-ideal-uat.dbs.com/rapid/hkfaster/v1/payment/initiatePayment
 url9: https://api-ideal-uat.dbs.com/rapid/enquiry/v1/cashk/verification

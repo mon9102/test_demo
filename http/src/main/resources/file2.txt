@@ -1,0 +1,15 @@
+{
+"header": {
+"msgId": "HKO82F2449701656579",
+"orgId": "0123",
+"timeStamp": "2018-04-12T10:53:29.996",
+"ctry": "HK"
+},
+"txnInfo": {
+"txnType": "DDA"
+},
+"txnEnquiry": {
+"enqAccountNo": "0001033107019",
+"accountCcy": "HKD",
+"txnRefId": ""
+}
