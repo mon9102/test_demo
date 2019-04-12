@@ -21,7 +21,7 @@
 "reason": "NWSTUP",
 "creditor": {
 "name": "GTS Account Company Name1",
-"accountNo": "0001033107019",
+"accountNo": "000000499",
 "accountCcy": "HKD"
 },
 "debtor": {
