@@ -27,7 +27,7 @@
 "debtor": {
 "name": "Peter",
 "proxyType": "B",
-“proxyValue”:” 4542854201”,
+"proxyValue":"4542854201",
 "bankId": "016",
 "ultimateName": "Peter Chan",
 " prvtCustomer ": [{
@@ -35,8 +35,8 @@
 " prvtCustomerIdType": "NIDN"
 },
 {
-" prvtCustomerId": "B12345678",
-" prvtCustomerIdType": "CUST"
+"prvtCustomerId": "B12345678",
+"prvtCustomerIdType": "CUST"
 }
 ]
 }
