@@ -1,0 +1,44 @@
+{
+"header": {
+"msgId": "HKO82F2449701656579",
+"orgId": "0123",
+"timeStamp": "2018-04-12T10:53:29.996",
+"ctry": "HK"
+},
+"txnInfo": {
+"txnType": "DDA",
+"ddaRef": "HKD645329791",
+"mandateType": "DDMU",
+"seqType": "RCUR",
+"frqcyType": "MNTH",
+"countPerPeriod": "1",
+"effDate": "2018-12-01",
+"expDate": "2019-12-31",
+"collAmt": "500.00",
+"collAmtCcy": "HKD",
+"maxAmt": "1000.00",
+"maxAmtCcy": "HKD",
+"reason": "NWSTUP",
+"creditor": {
+"name": "GTS Account Company Name1",
+"accountNo": "0001033107019",
+"accountCcy": "HKD"
+},
+"debtor": {
+"name": "Peter",
+"proxyType": "B",
+“proxyValue”:” 4542854201”,
+"bankId": "016",
+"ultimateName": "Peter Chan",
+" prvtCustomer ": [{
+" prvtCustomerId": "A1234567",
+" prvtCustomerIdType": "NIDN"
+},
+{
+" prvtCustomerId": "B12345678",
+" prvtCustomerIdType": "CUST"
+}
+]
+}
+}
+}

@@ -63,6 +63,12 @@ public class TestController {
     private String publicKey;
     @Value("${privateKey}")
     private String privateKey;
+    @Value("${file1}")
+    private String file1;
+    @Value("${file2}")
+    private String file2;
+    @Value("${file3}")
+    private String file3;
     @Value("${file5}")
     private String file5;
     @Value("${file7}")
@@ -70,6 +76,12 @@ public class TestController {
     @Value("${file9}")
     private String file9;
     //url
+    @Value("${url1}")
+    private String url1;
+    @Value("${url2}")
+    private String url2;
+    @Value("${url3}")
+    private String url3;
     @Value("${url5}")
     private String url5;
     @Value("${url9}")
@@ -103,6 +115,18 @@ public class TestController {
 
 
         switch (id) {
+            case "1":
+                param = param1(gpg, header);
+                url = url1;
+                break;
+            case "2":
+                param = param2(gpg, header);
+                url = url2;
+                break;
+            case "3":
+                param = param3(gpg, header);
+                url = url3;
+                break;
             case "6":
                 param = param6(gpg);
                 url = url5;
@@ -158,6 +182,19 @@ public class TestController {
      * @Return: java.util.Map<java.lang.String, java.lang.String>
      * @CreateDate: 2019/4/1 11:21
      */
+    
+    private String param1(String gpg, Map<String, String> header) {
+        return pgp(file1, gpg, header);
+    }
+    
+    private String param2(String gpg, Map<String, String> header) {
+        return pgp(file2, gpg, header);
+    }
+    
+    private String param3(String gpg, Map<String, String> header) {
+        return pgp(file3, gpg, header);
+    }
+    
     private String param5(String gpg, Map<String, String> header) {
         return pgp(file5, gpg, header);
     }
