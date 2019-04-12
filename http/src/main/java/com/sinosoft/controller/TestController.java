@@ -116,10 +116,14 @@ public class TestController {
 
         switch (id) {
             case "1":
+
+                header.put("keyId", "c6e020e9-1e6d-4757-afd9-45a801e22778");
                 param = param1(gpg, header);
                 url = url1;
                 break;
             case "2":
+                header.put("keyId", "c6e020e9-1e6d-4757-afd9-45a801e22778");
+
                 param = param2(gpg, header);
                 url = url2;
                 break;
