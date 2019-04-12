@@ -20,7 +20,7 @@
 "maxAmtCcy": "HKD",
 "reason": "NWSTUP",
 "creditor": {
-"name": "GTS Account Company Name1",
+"name": "JOHN TAN",
 "accountNo": "000000499",
 "accountCcy": "HKD"
 },
