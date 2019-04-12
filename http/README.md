@@ -1,0 +1,2 @@
+### 1报文返回
+{"header":{"msgId":"20190410HK101","orgId":"HKALICL","timeStamp":"2019-04-12T16:23:20.126","ctry":"HK"},"txnResponse":{"responseType":"ACK1","txnRefId":"HKEDDA19041200000007","txnStatus":"ACCP","mandateId":"016/MNDTEDDA19041200000007"}}
