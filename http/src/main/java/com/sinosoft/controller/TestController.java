@@ -104,6 +104,7 @@ public class TestController {
         Map<String, String> header = new HashMap<String, String>();
         header.put("msgId", msgId);
         header.put("orgId", "HKALICL");
+        header.put("ORG_ID", "HKALICL");//校验是使用
         header.put("keyId", keyId);
         LocalDateTime Idt4 = LocalDateTime.now();
 
@@ -118,6 +119,7 @@ public class TestController {
             case "1":
 
                 header.put("keyId", "c6e020e9-1e6d-4757-afd9-45a801e22778");
+                //effDate 设置为明天
                 param = param1(gpg, header);
                 url = url1;
                 break;
@@ -146,14 +148,16 @@ public class TestController {
             case "9":
                 keyId = "de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
                 header.put("keyId", keyId);
-                header.put("orgId", "HKSYHY");
+
+
+//                header.put("orgId", "HKSYHY");
                 param = paramverification(gpg, header);
                 url = url9;
                 break;
             case "verification":
                 keyId = "de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a";
                 header.put("keyId", keyId);
-                header.put("orgId", "HKSYHY");
+//                header.put("orgId", "HKSYHY");
                 param = paramverification(gpg, header);
                 url = url9;
 
