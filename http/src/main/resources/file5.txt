@@ -24,7 +24,7 @@
 {"address":"03-123"},
 {"address":"S(018982)"}],
 "proxyType" : "M",
-"proxyValue":"+852-59617678"
+"proxyValue":"eadvrpuser4@uat1bank.dbs.com"
 },
 "adviseDelivery":{
 "mode":"ES",
