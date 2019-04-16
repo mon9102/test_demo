@@ -18,7 +18,7 @@
 "maxAmtCcy": "HKD",
 "reason": "NWSTUP",
 "creditor": {
-"name": "JOHN TAN",
+"name": "CHAN TAI MAN PETER",
 "accountNo": "000000499",
 "accountCcy": "HKD"
 },
