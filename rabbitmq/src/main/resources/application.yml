@@ -1,0 +1,49 @@
+spring:
+  #rabbitmq相关配置文件https://blog.csdn.net/en_joker/article/details/80103519（springboot2.0之前的版本,部分与现在不同）
+  rabbitmq:
+    #rabbitmq服务器ip
+    host: localhost
+    #用户名
+    username: rabbitmquser
+    #密码
+    password: 123456
+    #端口
+    port: 5672
+    #使用虚拟主机
+    virtual-host: /
+    listener:
+      #simple和direct的区别https://blog.csdn.net/yingziisme/article/details/86418580
+      #属性类org.springframework.boot.autoconfigure.amqp下的RabbitProperties的424行DirectContainer和SimpleContainer
+      #官方doc https://docs.spring.io/spring-amqp/api/org/springframework/amqp/rabbit/listener/DirectMessageListenerContainer.html
+      simple:
+        retry:
+          #是否开启消费端重试
+          enabled: true
+          #重试次数
+          max-attempts: 3
+          #第一次和第二次重试间隔(毫秒)
+          initial-interval: 5000
+          #与上一次重试间隔的倍数
+          multiplier: 2
+          #两次尝试最大时间间隔
+          max-interval: 10000
+
+
+mq:
+  exchange:
+    name1: icc.direct
+    name2: icc.topic
+  queue:
+    name1: icc
+    name2: icc.test1
+    name3: icc.test2
+  routingkey:
+    icc:
+      direct:
+        key1: icc
+        key2: icc.test1
+        key3: icc.test2
+      topic:
+        key1: icc.#
+
+
