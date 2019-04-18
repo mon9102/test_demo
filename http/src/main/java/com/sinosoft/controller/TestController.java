@@ -124,7 +124,7 @@ public class TestController {
                 url = url1;
                 break;
             case "2":
-                header.put("keyId", "c6e020e9-1e6d-4757-afd9-45a801e22778");
+                header.put("keyId", "de8b9aef-f6f3-4dee-8383-1cb5e92c6c2a");
 
                 param = param2(gpg, header);
                 url = url2;
