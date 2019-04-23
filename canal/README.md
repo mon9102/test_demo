@@ -25,9 +25,10 @@
     查看log_bin 值是否是ON
     
 #### 创建账号
-    CREATE USER canal IDENTIFIED BY 'canal';  
-    GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';
-    FLUSH PRIVILEGES;
+    CREATE USER canal IDENTIFIED BY 'canal';    
+    GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';  
+    -- GRANT ALL PRIVILEGES ON *.* TO 'canal'@'%' ;  
+    FLUSH PRIVILEGES; 
     ps:因为不同的版本问题，导致创建用户的赋予权限，密码出现了不同，设置成'%'的时候，会导致 'localhost'无法登录。（就是本机测试会出错（远程无所谓））
 
 #### 配置canal
@@ -39,17 +40,20 @@
  #### instance.properties参数说明
 |参数名字|参数说明|
 |:----|:----|
-|canal.instance.mysql.slaveId|公共组件root|
+|canal.instance.mysql.slaveId|mysql集群配置中的serverId概念，需要保证和当前mysql集群中id唯一 (v1.1.x版本之后canal会自动生成，不需要手工指定)|
 |canal.instance.master.address|mysql主库链接地址|
 |canal.instance.master.journal.name|mysql主库链接时起始的binlog文件|
 |canal.instance.master.position|mysql主库链接时起始的binlog偏移量|
 |canal.instance.master.timestamp|mysql主库链接时起始的binlog的时间戳|
+|canal.instance.gtidon|是否启用mysql gtid的订阅模式|
+|canal.instance.master.gtid|mysql主库链接时对应的gtid位点|
 |canal.instance.dbUsername|mysql数据库帐号|
 |canal.instance.dbPassword|mysql数据库密码|
 |canal.instance.defaultDatabaseName|mysql链接时默认schema|
-|canal.instance.connectionCharset mysql|UTF-8|
-|canal.instance.filter.regex|mysql 数据解析关注的表，Perl正则表达式.多个正则之间以逗号(,)分隔，转义符需要双斜杠(\\) 
-
+|canal.instance.connectionCharset|mysql 数据解析编码|
+|canal.instance.filter.regex|mysql 数据解析关注的表，Perl正则表达式.多个正则之间以逗号(,)分隔，转义符需要双斜杠(\\)| 
+|canal.instance.filter.black.regex|mysql 数据解析表的黑名单，表达式规则见白名单的规则|
+|canal.instance.rds.instanceId|aliyun rds对应的实例id信息(如果不需要在本地binlog超过18小时被清理后自动下载oss上的binlog，可以忽略该值)|
 
     
 #### 乱码问题
@@ -65,3 +69,6 @@
 	
 #### 测试方法
     CanalController下的startMonitor，运行main方法后即可监控对应数据库下的操作
+    
+#### 更多参考
+    https://github.com/alibaba/canal/wiki/AdminGuide
