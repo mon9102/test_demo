@@ -3,4 +3,18 @@
     <kbase name="rules">
         <ksession name="all-rules"></ksession>
     </kbase>
+    <kbase name="ConwayRFKB" packages="org.drools.examples.conway,org.drools.examples.conway.ruleflow">
+        <ksession name="ConwayRFKS"/>
+    </kbase>
+    <kbase name="ConwayAGKB" packages="org.drools.examples.conway.agendagroup">
+        <ksession name="ConwayAGKS"/>
+    </kbase>
+
+    <kbase name="BrokerKB" packages="org.drools.examples.broker.rules" eventProcessingMode="stream">
+        <ksession name="BrokerKS"></ksession>
+    </kbase>
+
+    <kbase name="NumberGuessKB" packages="org.drools.examples.numberguess">
+        <ksession name="NumberGuessKS"/>
+    </kbase>
 </kmodule>
