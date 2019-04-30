@@ -1,4 +1,7 @@
-package com.testDemo.object;
+package com.testDemo.object.change1;
+
+import com.testDemo.object.CError;
+import com.testDemo.object.VData;
 
 /**
  * @Auther: zouren
@@ -23,5 +26,5 @@ public interface RestServiceUI {
      * @param result
      */
     public void setResult(Object result);
-    public boolean submitData(VData vData,String Operater);
+    public boolean submitData(VData vData, String Operater);
 }
