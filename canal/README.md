@@ -7,6 +7,7 @@
     
     github地址：https://github.com/alibaba/canal
     
+##主库
 #### 开启binglog
     打开服务中mysql服务的属性可以看到"C:\Program Files\MySQL\MySQL Server 5.6\bin\mysqld.exe" --defaults-file="C:\ProgramData\MySQL\MySQL Server 5.6\my.ini" MySQL56
     将my.ini复制到C:\Program Files\MySQL\MySQL Server 5.6
@@ -55,7 +56,7 @@
 |canal.instance.filter.black.regex|mysql 数据解析表的黑名单，表达式规则见白名单的规则|
 |canal.instance.rds.instanceId|aliyun rds对应的实例id信息(如果不需要在本地binlog超过18小时被清理后自动下载oss上的binlog，可以忽略该值)|
 
-    
+##碰到的问题
 #### 乱码问题
     1.可能是数据库
         在my.ini里添加以下内容
@@ -67,8 +68,9 @@
     2.canal中文乱码还有一种可能，当你使用cmd时canal报错含有中文的时候，由于你设定的字符集是utf-8，而cmd默认字符集是GBK
 	可以直接去canal.deployer-1.1.3\logs\canal下看日志
 	
-#### 测试方法
+## 测试方法
     CanalController下的startMonitor，运行main方法后即可监控对应数据库下的操作
     
-#### 更多参考
+## 更多参考
+    https://github.com/alibaba/canal
     https://github.com/alibaba/canal/wiki/AdminGuide
