@@ -1,10 +1,12 @@
-package com.testDemo.object.change1;
+package com.testDemo.object.change2;
 
 /**
  * @Date: 2019/4/30 10:53
  * @Description:
  */
 public class RestService {
+
+
 
     private static String getErrors(){
         System.out.println("RestService getErrors");

@@ -5,7 +5,6 @@ import com.testDemo.object.CErrors;
 import com.testDemo.object.VData;
 
 /**
- * @Auther: zouren
  * @Date: 2019/4/30 10:27
  * @Description:
  */
@@ -33,7 +32,7 @@ public class OldBeaServerUI implements RestServiceUI{
         return cCErros;
     }
 
-
+//TODO 需要实现3个接口，不需要修改属性  使用接口
     @Override
     public void setErro(String erro) {
         cCErros.addOneError(erro);
