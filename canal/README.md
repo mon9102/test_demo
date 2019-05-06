@@ -1,4 +1,4 @@
-# canal安装说明
+# canal安装说明（otter集成canal）
 #### github上关于支持版本的说明
 
     目前内部版本已经支持mysql和oracle部分版本的日志解析，当前的canal开源版本支持5.7及以下的版本(阿里内部mysql 5.7.13, 5.6.10, mysql 5.5.18和5.1.40/48)
@@ -27,7 +27,7 @@
     
 #### 创建账号
     CREATE USER canal IDENTIFIED BY 'canal';    
-    GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';  
+    GRANT SELECT, INSERT, UPDATE, DELETE, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';  
     -- GRANT ALL PRIVILEGES ON *.* TO 'canal'@'%' ;  
     FLUSH PRIVILEGES; 
     ps:因为不同的版本问题，导致创建用户的赋予权限，密码出现了不同，设置成'%'的时候，会导致 'localhost'无法登录。（就是本机测试会出错（远程无所谓））
@@ -37,6 +37,7 @@
     canal.deployer-1.1.3\conf\example 下的 instance.properties
     #配置监控的数据库名
     canal.instance.defaultDatabaseName =icc_test
+    ps:如果配置的数据库地址接口和用户名密码等与默认不同也需要修改
  
  #### instance.properties参数说明
 |参数名字|参数说明|
