@@ -1,14 +1,15 @@
-# canal安装说明（otter集成canal）
+# canal安装说明
+    otter集成canal，所以不需要单独安装canal，但任然要对数据库进行修改
 #### github上关于支持版本的说明
 
     目前内部版本已经支持mysql和oracle部分版本的日志解析，当前的canal开源版本支持5.7及以下的版本(阿里内部mysql 5.7.13, 5.6.10, mysql 5.5.18和5.1.40/48)
 
-    虽然说明里有5.5及以下版本，但按我经验5.5版本Binlog缺少字段无法使用至少需要5.6.20以上
+    虽然说明里有5.5及以下版本，但按我经验5.5版本Binlog缺少字段无法使用至少需要5.6.2以上
     
     github地址：https://github.com/alibaba/canal
     
 ##主库
-#### 开启binglog
+#### 开启binglog（主备库都要）
     打开服务中mysql服务的属性可以看到"C:\Program Files\MySQL\MySQL Server 5.6\bin\mysqld.exe" --defaults-file="C:\ProgramData\MySQL\MySQL Server 5.6\my.ini" MySQL56
     将my.ini复制到C:\Program Files\MySQL\MySQL Server 5.6
     然后在[mysqld]下加入以下内容
@@ -30,6 +31,7 @@
     GRANT SELECT, INSERT, UPDATE, DELETE, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';  
     -- GRANT ALL PRIVILEGES ON *.* TO 'canal'@'%' ;  
     FLUSH PRIVILEGES; 
+    如果需要其他操作，则可以对账号进行对应权限的赋予
     ps:因为不同的版本问题，导致创建用户的赋予权限，密码出现了不同，设置成'%'的时候，会导致 'localhost'无法登录。（就是本机测试会出错（远程无所谓））
 
 #### 配置canal
