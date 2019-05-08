@@ -18,10 +18,9 @@ public class Config implements InitializingBean {
     private String  ieWebDriver;
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println(chromeWebDriver);
-        System.out.println(ieWebDriver);
         System.setProperty("webdriver.chrome.driver",chromeWebDriver);
         System.setProperty("webdriver.ie.driver",ieWebDriver);
-
+        System.out.println(chromeWebDriver);
+        System.out.println(ieWebDriver);
     }
 }

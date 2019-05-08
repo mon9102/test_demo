@@ -7,5 +7,5 @@ server:
   port: 8080
 
 webDriver:
-  ie: src/main/resources/WebDriver/IEDriverServer.exe  #IEDriverServer_x64_3.141.59
+  ie: src/main/resources/WebDriver/IEDriverServer_32.exe  #IEDriverServer_x64_3.141.59
   chrome: src/main/resources/WebDriver/chromedriver.exe  #chromedriver_win32_74.0.3729.6
