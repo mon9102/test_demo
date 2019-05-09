@@ -29,4 +29,25 @@ public class InputUtils {
         WebElement webElement =  browser.findElement(By.cssSelector(cssSeleror));
         webElement.click();
     }
+    public static WebElement find(WebDriver browser,String cssSeleror){
+        WebElement webElement =null;
+        try {
+            WaitUtils.wiatByCssSelector(browser,cssSeleror);
+            webElement =  browser.findElement(By.cssSelector(cssSeleror));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return webElement;
+    }
+    public static WebElement findByLinkText(WebDriver browser,String linkText){
+        WebElement webElement =null;
+        try {
+            WaitUtils.wiatByLinkText(browser,linkText);
+            webElement =  browser.findElement(By.partialLinkText(linkText));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return webElement;
+    }
+
 }

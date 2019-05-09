@@ -16,6 +16,7 @@ public class IframeUtils {
      * @return
      */
     public static WebDriver chageIframe(WebDriver browser, String iframeCssSelector){
+        topPage(browser);
         return browser.switchTo().frame(browser.findElement(By.cssSelector(iframeCssSelector)));
     }
 
