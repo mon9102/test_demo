@@ -1,4 +1,4 @@
-package com.testDemo.selenium.webDriver;
+package com.testDemo.selenium.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @Date: 2019/5/8 15:04
  * @Description:
  */
-public class WebDriverWaitUtils {
+public class WaitUtils {
 
     /**
      *

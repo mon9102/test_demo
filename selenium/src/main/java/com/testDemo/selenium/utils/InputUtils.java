@@ -1,4 +1,4 @@
-package com.testDemo.selenium.webDriver;
+package com.testDemo.selenium.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
  * @Date: 2019/5/8 15:09
  * @Description:
  */
-public class WebDriverInputUtils {
+public class InputUtils {
 
     public static void setValue(WebDriver browser, String cssSeleror, String value){
         WebElement webElement =  browser.findElement(By.cssSelector(cssSeleror));

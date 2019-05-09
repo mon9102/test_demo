@@ -1,16 +1,15 @@
 package com.testDemo.selenium.webDriver;
 
-import org.openqa.selenium.By;
+import com.testDemo.selenium.utils.IframeUtils;
+import com.testDemo.selenium.utils.InputUtils;
+import com.testDemo.selenium.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.HttpCommandExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
-import java.util.Optional;
 
 /**
  * @Auther: zouren
@@ -36,54 +35,28 @@ public class IeDriverLis {
         return internetExplorerDriver;
     }
 
-    /**
-     * 切换到某个iframe里
-     * @param browser
-     * @param iframeCssSelector
-     * @return
-     */
-    public WebDriver chageIframe(WebDriver browser,String iframeCssSelector){
-       return browser.switchTo().frame(browser.findElement(By.cssSelector(iframeCssSelector)));
-    }
-
-    /**加入有多层iframe的回到上一层
-     *
-     * @param browser
-     * @return
-     */
-    public WebDriver parenIframe(WebDriver browser ){
-        return browser.switchTo().parentFrame();
-    }
-    /**
-     *  回到主文档
-     * @param browser
-     * @return
-     */
-    public WebDriver topPage(WebDriver browser ){
-        return browser.switchTo().defaultContent();
-    }
 
     public void index(String url,String username,String password){
         indexUrl = url;
         InternetExplorerDriver webDriver=getInternetExplorerDriver();
-        WebDriver fraInterface = chageIframe(webDriver,"#fraInterface");
-        WebDriverWaitUtils.wiatByCssSelector(fraInterface,"#UserCode2");
-        WebDriverInputUtils.setValue(fraInterface,"#UserCode2",username);
-        WebDriverInputUtils.setValue(fraInterface,"#PWD2",password);
-        WebDriverInputUtils.setValue(fraInterface,"#PWD2",password);
+        WebDriver fraInterface = IframeUtils.chageIframe(webDriver,"#fraInterface");
+        WaitUtils.wiatByCssSelector(fraInterface,"#UserCode2");
+        InputUtils.setValue(fraInterface,"#UserCode2",username);
+        InputUtils.setValue(fraInterface,"#PWD2",password);
+        InputUtils.setValue(fraInterface,"#PWD2",password);
 
-        WebDriverInputUtils.click(fraInterface,"[name=submit2]");
+        InputUtils.click(fraInterface,"[name=submit2]");
 
     }
 
     public void chageMenu(WebDriver browser,String meunUrl){
 
-        WebDriver fraMenu = chageIframe(browser,"#fraMenu");
+        WebDriver fraMenu = IframeUtils.chageIframe(browser,"#fraMenu");
 //        ../app/NoScanContInput.jsp?type=1
         StringBuilder stringBuilder = new StringBuilder("[href=");
         stringBuilder.append(meunUrl).append("]");
-        WebDriverWaitUtils.wiatByCssSelector(fraMenu,stringBuilder.toString());
-        WebDriverInputUtils.click(fraMenu,stringBuilder.toString());
+        WaitUtils.wiatByCssSelector(fraMenu,stringBuilder.toString());
+        InputUtils.click(fraMenu,stringBuilder.toString());
     }
 
 }

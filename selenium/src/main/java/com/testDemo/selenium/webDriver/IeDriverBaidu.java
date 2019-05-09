@@ -1,11 +1,10 @@
 package com.testDemo.selenium.webDriver;
 
+import com.testDemo.selenium.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.HttpCommandExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,8 +21,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class IeDriverBaidu {
+    public static InternetExplorerDriver browser=null;
     public WebElement getBody(String url,String key){
-        InternetExplorerDriver browser = new InternetExplorerDriver();
+        browser = new InternetExplorerDriver();
         String sessionid = browser.getSessionId().toString();
         System.out.println("session ID --->" + sessionid);
 
@@ -93,7 +93,7 @@ public class IeDriverBaidu {
         System.out.println("Title="+browser.getTitle());
         browser.findElementById("input").sendKeys(key);
         browser.findElementById("search-button").submit();
-        WebDriverWaitUtils.wiatByCssSelector(browser,"#container");
+        WaitUtils.wiatByCssSelector(browser,"#container");
         WebElement content =  browser.findElementById("container");
 
         return content;
@@ -103,7 +103,7 @@ public class IeDriverBaidu {
     public WebElement getBody2(String url,String key){
         InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
         internetExplorerOptions.setCapability(InternetExplorerDriver.INITIAL_BROWSER_URL, url);
-        InternetExplorerDriver browser = new InternetExplorerDriver(internetExplorerOptions);
+        browser = new InternetExplorerDriver(internetExplorerOptions);
         browser.manage().timeouts()
                 .implicitlyWait(10, TimeUnit.SECONDS);
 //        browser.get(url);

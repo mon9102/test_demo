@@ -22,7 +22,9 @@ import java.util.stream.Stream;
 
 import static org.openqa.selenium.remote.CapabilityType.SUPPORTS_JAVASCRIPT;
 
-/**
+/**  String sessionID = internetExplorerDriver.getSessionId().toString();
+ *   URL serverUrl = ((HttpCommandExecutor)(internetExplorerDriver.getCommandExecutor())).getAddressOfRemoteServer();
+ *   通过上面得到serverUrl与sessionID，再不关闭流览器的时候，可以再试使用流览器
  * ResumeWebdriver
  *
  */

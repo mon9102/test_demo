@@ -49,7 +49,8 @@ public class IeDriverBaiduTest {
     public void tabTest(){
         ieDriverBaidu.getBody2("https://www.baidu.com","学习");
         TabUtils.openTab(IeDriverBaidu.browser,"https://www.so.com/");
-        TabUtils.toTab(IeDriverBaidu.browser);
+        String handle = TabUtils.findNewTab(IeDriverBaidu.browser);
+
 //        ieDriverBaidu.getBody2By360(IeDriverBaidu.browser,"https://www.so.com/","学习");
     }
 }
