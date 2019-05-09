@@ -1,4 +1,4 @@
-package com.testDemo.selenium.webDriver;
+package com.testDemo.selenium.reuse;
 
 import com.google.common.collect.ImmutableMap;
 import org.openqa.selenium.Capabilities;
@@ -33,7 +33,7 @@ public class ReuseWebDriver extends RemoteWebDriver {
     private String serverUrl;
 
     public ReuseWebDriver(String serverUrl, String sessionID) throws MalformedURLException {
-        super(new myHttpCommandExecutor(new URL(serverUrl)), null);
+        super(new MyHttpCommandExecutor(new URL(serverUrl)), null);
         this.serverUrl = serverUrl;
         myStartSession(sessionID);
     }

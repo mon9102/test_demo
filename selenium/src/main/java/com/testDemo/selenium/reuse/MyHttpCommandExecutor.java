@@ -1,4 +1,4 @@
-package com.testDemo.selenium.webDriver;
+package com.testDemo.selenium.reuse;
 
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.SessionNotCreatedException;
@@ -12,12 +12,12 @@ import java.net.URL;
 
 import static org.openqa.selenium.remote.DriverCommand.*;
 
-public class myHttpCommandExecutor extends HttpCommandExecutor {
+public class MyHttpCommandExecutor extends HttpCommandExecutor {
     private CommandCodec<HttpRequest> mycommandCodec;
     private ResponseCodec<HttpResponse> myresponseCodec;
     private final HttpClient myclient;
 
-    public myHttpCommandExecutor(URL addressOfRemoteServer) {
+    public MyHttpCommandExecutor(URL addressOfRemoteServer) {
         super(addressOfRemoteServer);
         initCodec();
         this.myclient = HttpClient.Factory.createDefault().createClient(addressOfRemoteServer);
