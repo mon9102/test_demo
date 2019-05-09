@@ -1,18 +1,15 @@
 package com.testDemo.selenium.webDriver;
 
 import com.testDemo.selenium.Application;
+import com.testDemo.selenium.reuse.ReuseWebDriver;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: zouren
