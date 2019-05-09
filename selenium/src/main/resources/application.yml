@@ -9,3 +9,8 @@ server:
 webDriver:
   ie: src/main/resources/WebDriver/IEDriverServer_32.exe  #IEDriverServer_x64_3.141.59
   chrome: src/main/resources/WebDriver/chromedriver.exe  #chromedriver_win32_74.0.3729.6
+testconfig:
+  prop: E:/zouren/workspase/idea2018/test_demo/selenium/src/main/resources/test/
+  fils:
+    webDriver: driver-test.properties  #流览器与登陆信息
+    tb: tb-test.properties  #投保信息

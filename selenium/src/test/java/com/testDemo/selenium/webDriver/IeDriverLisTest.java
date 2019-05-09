@@ -1,14 +1,25 @@
 package com.testDemo.selenium.webDriver;
 
+import cn.hutool.core.io.file.FileReader;
+import cn.hutool.core.io.file.FileWriter;
+import cn.hutool.setting.dialect.Props;
 import com.testDemo.selenium.Application;
+import com.testDemo.selenium.config.TestPropConfig;
 import com.testDemo.selenium.reuse.ReuseWebDriver;
+import com.testDemo.selenium.utils.IframeUtils;
+import com.testDemo.selenium.utils.InputUtils;
+import com.testDemo.selenium.utils.WaitUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.net.MalformedURLException;
+import java.util.List;
 
 /**
  * @Auther: zouren
@@ -20,17 +31,91 @@ import java.net.MalformedURLException;
 public class IeDriverLisTest {
     @Autowired
     private IeDriverLis ieDriverLis;
-
+    @Autowired
+    private TestPropConfig testPropConfig;
 
     @Test
-    public void index(){
-        ieDriverLis.index("http://sinosoft.vicp.hk/dev/","001","001");
+    public void index() {
+        ieDriverLis.index("","","");
     }
+
+    @Test
+    public void allMenu() throws MalformedURLException {
+        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
+        String sid = props.getStr("sessionid");
+        String url = props.getStr("serverUrl");
+        ReuseWebDriver driver = new ReuseWebDriver(url, sid);
+        ieDriverLis.chageMenu(driver,"承保处理","个人保单","无扫描录入");
+//        WebDriver fraMenu = IframeUtils.chageIframe(driver,"#fraMenu");
+//        WebElement webElement = InputUtils.findByLinkText(fraMenu,"承保处理");
+//        String id = webElement.getAttribute("id");
+//        id=id.replaceAll("link","tree");
+//        WebElement nextWebElement = InputUtils.find(fraMenu,"#"+id+">span:last-child");
+//        System.out.println(nextWebElement.isDisplayed()+"   "+ nextWebElement.getText());
+//        if(!nextWebElement.isDisplayed()){
+//            webElement.click();
+//        }
+//        System.out.println( webElement.toString());
+//        System.out.println(webElement.getText());
+//
+//        webElement = InputUtils.findByLinkText(fraMenu,"个人保单");
+//        id = webElement.getAttribute("id");
+//        id=id.replaceAll("link","tree");
+//        nextWebElement = InputUtils.find(fraMenu,"#"+id+">span:last-child");
+//        if( !nextWebElement.isDisplayed()){
+//            webElement.click();
+//        }
+//        System.out.println(webElement.getText());
+//
+//        webElement = InputUtils.findByLinkText(fraMenu,"无扫描录入");
+//        System.out.println(webElement.getText());
+//        webElement.click();
+
+
+    }
+
     @Test
     public void chageMenu() throws MalformedURLException {
-        String sid = "9f6bfe6d-b54a-42da-a5c7-d697c7444f2a";
-        String url = "http://localhost:16368";
+        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
+        String sid = props.getStr("sessionid");
+        String url = props.getStr("serverUrl");
         ReuseWebDriver driver = new ReuseWebDriver(url, sid);
-        ieDriverLis.chageMenu(driver,"../app/NoScanContInput.jsp?type=1");
+        ieDriverLis.chageMenu(driver, "/NoScanContInput.jsp");
+    }
+
+    @Test
+    public void NoScanContInput() throws MalformedURLException {
+        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
+        String sid = props.getStr("sessionid");
+        String url = props.getStr("serverUrl");
+        ReuseWebDriver driver = new ReuseWebDriver(url, sid);
+        ieDriverLis.NoScanContInput(driver);
+    }
+
+    @Test
+    public void tbALL() throws MalformedURLException, InterruptedException {
+        ieDriverLis.index("http://sinosoft.vicp.hk/dev/", "001", "001");
+        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
+        String sid = props.getStr("sessionid");
+        String url = props.getStr("serverUrl");
+
+        ReuseWebDriver driver = new ReuseWebDriver(url, sid);
+
+        do {
+            try {
+                ieDriverLis.chageMenu(driver, "/NoScanContInput.jsp");
+            } catch (Exception e) {
+                ieDriverLis.chageMenu(driver, "/whatsnew.jsp");
+                System.out.println("continue");
+                continue;
+            }
+            System.out.println("break");
+            break;
+
+        } while (true);
+
+
+        ieDriverLis.NoScanContInput(driver);
+
     }
 }
