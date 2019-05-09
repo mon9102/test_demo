@@ -2,6 +2,7 @@ package com.testDemo.selenium.webDriver;
 
 import com.testDemo.selenium.Application;
 import com.testDemo.selenium.reuse.ReuseWebDriver;
+import com.testDemo.selenium.utils.TabUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
@@ -35,7 +36,7 @@ public class IeDriverBaiduTest {
         System.out.println(webElement.getText());
     }
     @Test
-    public void getBody2By360() throws MalformedURLException {
+    public void ReuseWebDriver() throws MalformedURLException {
         String sid = "d2e365aa-d384-49ca-af3a-02a67771372e";
         String url = "http://localhost:19653";
 
@@ -43,5 +44,12 @@ public class IeDriverBaiduTest {
         ReuseWebDriver driver = new ReuseWebDriver(url, sid);
 //
         ieDriverBaidu.getBody2By360(driver,"https://www.so.com/","学习");
+    }
+    @Test
+    public void tabTest(){
+        ieDriverBaidu.getBody2("https://www.baidu.com","学习");
+        TabUtils.openTab(IeDriverBaidu.browser,"https://www.so.com/");
+        TabUtils.toTab(IeDriverBaidu.browser);
+//        ieDriverBaidu.getBody2By360(IeDriverBaidu.browser,"https://www.so.com/","学习");
     }
 }
