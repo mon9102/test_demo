@@ -30,13 +30,13 @@ import java.util.List;
 @SpringBootTest(classes = Application.class)
 public class IeDriverLisTest {
     @Autowired
-    private IeDriverLis ieDriverLis;
+    protected IeDriverLis ieDriverLis;
     @Autowired
-    private TestPropConfig testPropConfig;
+    protected TestPropConfig testPropConfig;
 
     @Test
     public void index() {
-        ieDriverLis.index("","","");
+
     }
 
     @Test
@@ -83,39 +83,5 @@ public class IeDriverLisTest {
         ieDriverLis.chageMenu(driver, "/NoScanContInput.jsp");
     }
 
-    @Test
-    public void NoScanContInput() throws MalformedURLException {
-        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
-        String sid = props.getStr("sessionid");
-        String url = props.getStr("serverUrl");
-        ReuseWebDriver driver = new ReuseWebDriver(url, sid);
-        ieDriverLis.NoScanContInput(driver);
-    }
 
-    @Test
-    public void tbALL() throws MalformedURLException, InterruptedException {
-        ieDriverLis.index("http://sinosoft.vicp.hk/dev/", "001", "001");
-        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
-        String sid = props.getStr("sessionid");
-        String url = props.getStr("serverUrl");
-
-        ReuseWebDriver driver = new ReuseWebDriver(url, sid);
-
-        do {
-            try {
-                ieDriverLis.chageMenu(driver, "/NoScanContInput.jsp");
-            } catch (Exception e) {
-                ieDriverLis.chageMenu(driver, "/whatsnew.jsp");
-                System.out.println("continue");
-                continue;
-            }
-            System.out.println("break");
-            break;
-
-        } while (true);
-
-
-        ieDriverLis.NoScanContInput(driver);
-
-    }
 }
