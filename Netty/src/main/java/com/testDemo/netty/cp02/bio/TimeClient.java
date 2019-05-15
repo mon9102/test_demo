@@ -1,4 +1,4 @@
-package com.testDemo.netty.jdk.biopool;
+package com.testDemo.netty.cp02.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;
