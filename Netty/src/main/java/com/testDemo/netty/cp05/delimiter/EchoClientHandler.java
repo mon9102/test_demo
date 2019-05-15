@@ -1,4 +1,4 @@
-package com.testDemo.netty.ch05.delimiter;
+package com.testDemo.netty.cp05.delimiter;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;

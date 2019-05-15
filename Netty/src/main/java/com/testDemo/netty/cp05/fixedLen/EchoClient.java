@@ -1,4 +1,4 @@
-package com.testDemo.netty.ch05.fixedLen;
+package com.testDemo.netty.cp05.fixedLen;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;

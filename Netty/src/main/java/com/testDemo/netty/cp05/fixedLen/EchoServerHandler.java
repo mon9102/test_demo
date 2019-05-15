@@ -1,4 +1,4 @@
-package com.testDemo.netty.ch05.fixedLen;
+package com.testDemo.netty.cp05.fixedLen;
 
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerAdapter;

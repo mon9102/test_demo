@@ -1,4 +1,4 @@
-package com.testDemo.netty.ch04.LineBasedFrameDecoder;
+package com.testDemo.netty.cp04.LineBasedFrameDecoder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
