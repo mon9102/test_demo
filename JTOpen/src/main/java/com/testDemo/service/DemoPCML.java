@@ -2,11 +2,14 @@ package com.testDemo.service;
 
 import com.ibm.as400.access.AS400;
 import com.ibm.as400.access.AS400Message;
+import com.ibm.as400.access.Trace;
 import com.ibm.as400.data.PcmlException;
 import com.ibm.as400.data.ProgramCallDocument;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.InputStream;
 
 /**
  * @Auther: zouren
@@ -86,5 +89,27 @@ public class DemoPCML {
         }
     }
 
+    public static void main(String[] args) {
 
+
+        ClassLoader var2 = Thread.currentThread().getContextClassLoader();
+//        System.out.println(var2.getResource("/qsyrusri.pcml").getPath());
+        System.out.println(var2.getResource("qsyrusri.pcml").getPath());
+
+            InputStream var1 = var2.getResourceAsStream("/qsyrusri");
+
+    }
+    public void testFile() {
+        String a = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        System.out.println(a);
+        InputStream s = Thread.currentThread().getContextClassLoader().getResourceAsStream("/qsyrusri.pcml");
+        System.out.println(s.toString());
+//        try {
+//            AS400 as400System = new AS400();
+//
+//            ProgramCallDocument pcml = new ProgramCallDocument(as400System, "/qsyrusri");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
 }
