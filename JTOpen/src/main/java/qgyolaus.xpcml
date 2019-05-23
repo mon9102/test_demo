@@ -1,0 +1,49 @@
+<xpcml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="xpcml.xsd" version="4.0">
+    <!-- XPCML source for calling "Open List of Authorized Users" -->
+    <!-- (QGYOLAUS) API -->
+    <!-- Format AUTU0150 - Other formats are available -->
+    <struct name="autu0150">
+        <stringParm name="name" length="10"/>
+        <stringParm name="userOrGroup" length="1"/>
+        <stringParm name="groupMembers" length="1"/>
+        <stringParm name="description" length="50"/>
+    </struct>
+    <!-- List information structure (common for "Open List" type APIs) -->
+    <struct name="listInfo">
+        <intParm name="totalRcds"/>
+        <intParm name="rcdsReturned">0</intParm>
+        <hexBinaryParm name="rqsHandle" totalBytes="4"/>
+        <intParm name="rcdLength"/>
+        <stringParm name="infoComplete" length="1"/>
+        <stringParm name="dateCreated" length="7"/>
+        <stringParm name="timeCreated" length="6"/>
+        <stringParm name="listStatus" length="1"/>
+        <hexBinaryParm totalBytes="1"/>
+        <unsignedIntParm name="lengthOfInfo"/>
+        <intParm name="firstRecord"/>
+        <hexBinaryParm totalBytes="40"/>
+    </struct>
+    IBM Toolbox for Java 549<!-- Program QGYOLAUS and its parameter list for retrieving -->
+    <!-- AUTU0150 format -->
+    <program name="QGYOLAUS" path="/QSYS.lib/QGY.lib/QGYOLAUS.pgm"
+             parseOrder="listInfo receiver">
+        <parameterList>
+            // Output values --- array of the autu0150 struct
+            <arrayOfStructParm name="receiver" count="listInfo.rcdsReturned"
+                               passDirection="out" outputSize="receiverLength" struct="autu0150"/>
+            // Input values
+            <intParm name="receiverLength" passDirection="in">16384</intParm>
+            <structParm name="listInfo" passDirection="out" struct="listInfo"/>
+            // Input values
+            <intParm name="rcdsToReturn" passDirection="in">264</intParm>
+            <stringParm name="format" passDirection="in" length="10">
+                AUTU0150</stringParm>
+            <stringParm name="selection" passDirection="in" length="10">
+                *USER</stringParm>
+            <stringParm name="member" passDirection="in" length="10">
+                *NONE</stringParm>
+            <intParm name="errorCode" passDirection="in">0</intParm>
+        </parameterList>
+    </program>
+</xpcml>
