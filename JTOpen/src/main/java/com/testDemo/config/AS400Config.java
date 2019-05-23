@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description:
  */
 @Configuration
-@ConfigurationProperties(prefix = "AS400")
+@ConfigurationProperties(prefix = "as400")
 @Getter
 @Setter
 public class AS400Config {
