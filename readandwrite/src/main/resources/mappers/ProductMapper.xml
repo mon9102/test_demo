@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sinosoft.demo2.mapper.ProductMapper">
+
+    <resultMap id="baseResultMap" type="com.sinosoft.demo2.dao.Product">
+        <id column="id" property="id" javaType="java.lang.Long" jdbcType="INTEGER"></id>
+        <result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+        <result column="price" property="price" javaType="java.lang.Long" jdbcType="BIGINT"></result>
+    </resultMap>
+
+    <select id="select" resultType="com.sinosoft.demo2.dao.Product">
+        SELECT * FROM product WHERE id = #{id}
+    </select>
+    <insert id="insert">
+        insert into product(id,name,price) values(#{id},#{name},#{price})
+    </insert>
+    <delete id="delete">
+        delete from product where id = #{id}
+    </delete>
+    <update id="update">
+        update product set name = #{name}, price = #{price} where id = #{id}
+    </update>
+</mapper>
