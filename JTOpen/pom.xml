@@ -60,6 +60,12 @@
             <artifactId>jt400</artifactId>
             <version>9.7</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.jt400/jt400-full -->
+        <!--<dependency>-->
+            <!--<groupId>net.sf.jt400</groupId>-->
+            <!--<artifactId>jt400-full</artifactId>-->
+            <!--<version>6.0</version>-->
+        <!--</dependency>-->
 
 
         <dependency>
@@ -147,5 +153,15 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.pcml</include>
+                    <include>**/*.xpcml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>
