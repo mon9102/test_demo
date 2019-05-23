@@ -6,7 +6,7 @@ logging:
 server:
   port: 9091
 
-AS400:
+as400:
   systemName: SystemName;
   username: Username
   password: Password
