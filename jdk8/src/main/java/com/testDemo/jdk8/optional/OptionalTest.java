@@ -81,5 +81,17 @@ public class OptionalTest {
         this.name = Optional.ofNullable(name).filter(User::isNameValid)
                 .orElseThrow(()->new IllegalArgumentException("Invalid username."));
     }
+    @Test
+    public void test1(){
+        Object o = 1L;
+        Long re = Optional.ofNullable(o).map(m->(Long)o).orElse(2L);
+        System.out.println(re);
+        Long re1 = Optional.ofNullable(o).map(m->(Long)o).orElseGet(()->{
+           long i = 9;
+           i++;
+            return i;
+        });
+        System.out.println(re1);
+    }
 
 }
