@@ -23,7 +23,7 @@ public class MapTest {
     @Test
     public void testJoin(){
         Map<String,String> m =  getMap();
-       String a = m.entrySet().stream().map(entry->entry.getKey()+"="+entry.getValue())
+       String a = m.entrySet().stream().map(entry->String.format("%s=%s", entry.getKey(), entry.getValue()))
                .collect(Collectors.joining("&"));
         System.out.println(a);
     }
