@@ -1,6 +1,7 @@
 package com.testDemo.guava;
 
 import com.google.common.base.Preconditions;
+import org.junit.platform.commons.util.StringUtils;
 
 /**
  * @Auther: zouren
@@ -10,7 +11,10 @@ import com.google.common.base.Preconditions;
 public class PreconditionsTest {
     public static void main(String[] args) {
         PreconditionsTest demo = new PreconditionsTest();
-        demo.doSomething("Jim", 19, "hello world, hello java");
+//        demo.doSomething("Jim", 19, "hello world, hello java");
+
+        Preconditions.checkArgument(false, "age must in range (18,99)");
+
     }
 
     public void doSomething(String name, int age, String desc) {

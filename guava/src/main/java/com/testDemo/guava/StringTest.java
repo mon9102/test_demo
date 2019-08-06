@@ -109,4 +109,6 @@ public class StringTest {
         System.out.println(mapJoinResult);
 
     }
+    public void isnotblank(){
+    }
 }
