@@ -15,7 +15,11 @@
             <artifactId>pinyin4j</artifactId>
             <version>2.5.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.sf.triemap</groupId>
+            <artifactId>triemap</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
