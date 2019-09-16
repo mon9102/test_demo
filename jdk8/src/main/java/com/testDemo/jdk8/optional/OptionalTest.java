@@ -69,7 +69,7 @@ public class OptionalTest {
         Optional<String> string = Optional.of(param);
 
         string.ifPresent(System.out::println);
-
+        System.out.println(string.isPresent());
     }
     /**
      * @Description: Optional可以用来检验参数的合法性
