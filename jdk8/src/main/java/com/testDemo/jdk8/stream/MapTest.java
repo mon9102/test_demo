@@ -2,7 +2,9 @@ package com.testDemo.jdk8.stream;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -27,5 +29,17 @@ public class MapTest {
                .collect(Collectors.joining("&"));
 //        a=1&b=2&c=3&d=4
         System.out.println(a);
+    }
+    @Test
+    public void testKey(){
+        Map<String,String> m =  getMap();
+        List<String> keys = new ArrayList<>();
+        keys.add("b");
+        keys.add("d");
+        Map newMap = m.entrySet().stream().filter((e)->
+            keys.contains(e.getKey())).collect(Collectors.toMap( (e) -> (String) e.getKey(),
+                (e) -> e.getValue()));
+        System.out.println(newMap);
+
     }
 }

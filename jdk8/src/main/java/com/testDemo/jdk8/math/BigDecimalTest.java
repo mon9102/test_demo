@@ -117,4 +117,11 @@ public class BigDecimalTest {
         //[2, 1]  true  true
         System.out.println(Arrays.toString(array) + "  " + array[0].equals(bd_dti) + "  " + array[1].equals(bd_rem));
     }
+
+    public static void main(String[] args) {
+//        HSSFCell cell = null;
+//        cell.setCellType(HSSFCell.ENCODING_UTF_16);
+
+
+    }
 }
