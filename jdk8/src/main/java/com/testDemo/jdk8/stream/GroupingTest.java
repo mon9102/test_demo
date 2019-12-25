@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -35,6 +36,10 @@ public class GroupingTest {
     public void testGroupBy1(){
         Map<String, List<Student>> map = Arrays.stream(students).collect(groupingBy(Student::getName));
         map.forEach((x,y)-> System.out.println(x+"->"+y));
+        Map<String, List<Integer>> scoreMap = Arrays.stream(students).collect(groupingBy(Student::getName,Collectors.mapping(Student::getScore, Collectors.toList())));
+        scoreMap.forEach((x,y)-> System.out.println(x+"->"+y));
+
+
     }
 
     /**
