@@ -68,6 +68,7 @@ public class OptionalTest {
         String param = "aaa";
         Optional<String> string = Optional.of(param);
 
+        System.out.println(string.isPresent());
         string.ifPresent(System.out::println);
         System.out.println(string.isPresent());
     }

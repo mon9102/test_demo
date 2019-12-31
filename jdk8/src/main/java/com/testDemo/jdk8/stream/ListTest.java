@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -30,7 +31,7 @@ public class ListTest {
         random = new Random();
         stuList = new ArrayList<Student>() {
             {
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 3; i++) {
                     add(new Student("student" + i, random.nextInt(50) + 50));
                 }
             }
@@ -236,5 +237,16 @@ public class ListTest {
                 .sum());
         //36
 
+    }
+    @Test
+    public  void testRemoveIf(){
+        Predicate<Student> predicate = (student) -> {
+            if ("student1".equals(student.getName())){
+                return true;
+            }
+            return false;
+        };
+        stuList.removeIf(predicate);
+        System.out.println(stuList);
     }
 }
