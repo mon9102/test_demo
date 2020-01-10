@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -25,7 +26,7 @@ public class ListTest {
     List<String> wordList;
 
     Student[] students;
-
+    List<Map<String,BigDecimal>> mapList;
     @BeforeEach
     public void init() {
         random = new Random();
@@ -45,6 +46,18 @@ public class ListTest {
                 add("e");
                 add("f");
                 add("g");
+            }
+        };
+        Map<String, BigDecimal> row = new HashMap<>();
+        row.put("a",new BigDecimal("1"));
+        Map<String, BigDecimal> row2 = new HashMap<>();
+        row2.put("a",new BigDecimal("2"));
+        mapList = new ArrayList<Map<String, BigDecimal>>() {
+            {
+
+                add(row);
+                add(row2);
+
             }
         };
     }
@@ -248,5 +261,10 @@ public class ListTest {
         };
         stuList.removeIf(predicate);
         System.out.println(stuList);
+    }
+    @Test
+    public void  testmapToInt(){
+        DoubleSummaryStatistics qtySummary = mapList.stream().collect(Collectors.summarizingDouble(e -> Double.valueOf(e.get("a").doubleValue())));
+        System.out.println(qtySummary.getSum());
     }
 }
