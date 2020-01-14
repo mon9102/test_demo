@@ -34,6 +34,7 @@ public class ListTest {
             {
                 for (int i = 0; i < 3; i++) {
                     add(new Student("student" + i, random.nextInt(50) + 50));
+                    add(new Student("aa", random.nextInt(50) + 50));
                 }
             }
         };
@@ -261,6 +262,17 @@ public class ListTest {
         };
         stuList.removeIf(predicate);
         System.out.println(stuList);
+    }
+    @Test
+    public  void testRemoveIf2(){
+        Predicate<Student> predicate = (student) -> {
+            if ("student1".equals(student.getName())){
+                return true;
+            }
+            return false;
+        };
+        Map<String, List<Student>> studentList = stuList.stream().filter(student ->  student.getName().startsWith("aa")).collect(Collectors.groupingBy(Student::getName));
+        System.out.println(studentList);
     }
     @Test
     public void  testmapToInt(){

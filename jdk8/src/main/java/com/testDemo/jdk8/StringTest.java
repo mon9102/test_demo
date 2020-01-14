@@ -26,12 +26,32 @@ public class StringTest {
     public void joinWith(){
 
         System.out.println( StringUtils.joinWith("asdf-aa","AS","CC"));
-        System.out.println(  StringUtils.appendIfMissing("asdf-aa","B"));
+        System.out.println( StringUtils.joinWith("asdf-aa","AS"));
+        System.out.println( StringUtils.appendIfMissing("asdf-aa","B"));
     }
     @Test
     public void subStr(){
         String symbol = "abvcefghijk";
         System.out.println(StringUtils.substring(symbol, -6));
         System.out.println(StringUtils.substring(symbol, 0,6));
+    }
+    @Test
+    public void isEmty(){
+
+        System.out.println( StringUtils.isNotEmpty(""));
+        System.out.println( StringUtils.isNotEmpty(null));
+        System.out.println( StringUtils.isNotEmpty(" "));
+        System.out.println( "==============");
+        System.out.println( StringUtils.isBlank(""));
+        System.out.println( StringUtils.isNoneBlank(null));
+        System.out.println( StringUtils.isNoneBlank(" "));
+    }
+    @Test
+    public void test(){
+        String symbol = "EURUSD-STD";
+        String sexCode =  StringUtils.substring(symbol, 0,6);
+        System.out.println(sexCode);
+        System.out.println( StringUtils.appendIfMissing(sexCode,""));
+        System.out.println( StringUtils.appendIfMissing("",sexCode));
     }
 }
