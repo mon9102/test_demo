@@ -1,7 +1,6 @@
 package com.testDemo.utils;
 
 import com.testDemo.jdk8.enums.MySymbol;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -18,9 +17,9 @@ public class BeanUtilsTest {
         mt4Rule.setjBaiyin(1D);
         mt4Rule.setzBaiyin(2D);
         String str = MySymbol.BAIYIN.name().toLowerCase();
-
         System.out.println(str);
         System.out.println(  StringUtils.join("z",str.substring(0,1).toUpperCase(),str.substring(1)));
         System.out.println(PropertyUtils.getSimpleProperty(mt4Rule,"zbaiyin"));
     }
+
 }

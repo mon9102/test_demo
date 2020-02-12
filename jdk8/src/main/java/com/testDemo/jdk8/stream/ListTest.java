@@ -32,10 +32,14 @@ public class ListTest {
         random = new Random();
         stuList = new ArrayList<Student>() {
             {
-                for (int i = 0; i < 3; i++) {
-                    add(new Student("student" + i, random.nextInt(50) + 50));
-                    add(new Student("aa", random.nextInt(50) + 50));
-                }
+//                for (int i = 0; i < 3; i++) {
+//                    add(new Student("student" + i, random.nextInt(50) + 50));
+//                    add(new Student("aa", random.nextInt(50) + 50));
+//                }
+            add(new Student("student" + 1, random.nextInt(50) + 50,new BigDecimal(1+"")));
+            add(new Student("student" + 2, random.nextInt(50) + 50,new BigDecimal(20.2+"")));
+            add(new Student("student" + 3, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+
             }
         };
         wordList = new ArrayList<String>() {
@@ -227,10 +231,16 @@ public class ListTest {
         Stream.iterate(0, UnaryOperator.identity()).limit(10).forEach(System.out::println);
         System.out.println("============================================");
     }
-
+    @Test
     public void testTOMap() {
         stuList.stream().collect(Collectors.toMap(Student::getName,student->student));
+    }
+    @Test
+    public void testTOMap2() {
+        stuList.stream().collect(Collectors.toMap(Student::getName,student->student));
 
+        System.out.println( stuList.stream().map(st->st.getAvgScore()).reduce((a,b)->a.add(b)).orElse(new BigDecimal(0)));
+        System.out.println( stuList.stream().mapToDouble(st->st.getAvgScore().doubleValue()).sum());
 
     }
     @Test

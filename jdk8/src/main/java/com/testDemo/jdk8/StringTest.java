@@ -54,4 +54,10 @@ public class StringTest {
         System.out.println( StringUtils.appendIfMissing(sexCode,""));
         System.out.println( StringUtils.appendIfMissing("",sexCode));
     }
+    @Test
+    public void tet111(){
+        System.out.println(StringUtils.startsWith("a123","a"));
+        System.out.println(StringUtils.startsWith("","a"));
+        System.out.println(StringUtils.startsWith(null,"a"));
+    }
 }
