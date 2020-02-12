@@ -4,11 +4,8 @@ package com.testDemo.serialize;
  * @Date: 2019/4/30 14:59
  * @Description:
  */
-import com.testDemo.object.VData;
 
 import java.io.*;
-import java.text.MessageFormat;
-import java.util.Date;
 
 /**
  * <p>ClassName: TestObjSerializeAndDeserialize<p>
@@ -17,18 +14,9 @@ import java.util.Date;
 public class TestObjSerializeAndDeserialize {
 
     public static void main(String[] args) throws Exception {
-        VData mVData = new VData();
-        mVData.add("aaaa");
-        mVData.add("bbbb");
-        mVData.add(new Date());
-//        serializeObject(mVData);
-//        VData m = (VData) deserializeObject(null);
-        byte[] b = toByteArray(mVData);
-        VData m = (VData)toObject(b);
-        Date a = (Date) m.getObjectByObjectName("Date",1);
 
 
-        System.out.println(a);
+
     }
 
 
