@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -24,15 +26,20 @@ public class ListTest {
     List<String> wordList;
 
     Student[] students;
-
+    List<Map<String,BigDecimal>> mapList;
     @BeforeEach
     public void init() {
         random = new Random();
         stuList = new ArrayList<Student>() {
             {
-                for (int i = 0; i < 100; i++) {
-                    add(new Student("student" + i, random.nextInt(50) + 50));
-                }
+//                for (int i = 0; i < 3; i++) {
+//                    add(new Student("student" + i, random.nextInt(50) + 50));
+//                    add(new Student("aa", random.nextInt(50) + 50));
+//                }
+            add(new Student("student" + 1, random.nextInt(50) + 50,new BigDecimal(1+"")));
+            add(new Student("student" + 2, random.nextInt(50) + 50,new BigDecimal(20.2+"")));
+            add(new Student("student" + 3, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+
             }
         };
         wordList = new ArrayList<String>() {
@@ -44,6 +51,18 @@ public class ListTest {
                 add("e");
                 add("f");
                 add("g");
+            }
+        };
+        Map<String, BigDecimal> row = new HashMap<>();
+        row.put("a",new BigDecimal("1"));
+        Map<String, BigDecimal> row2 = new HashMap<>();
+        row2.put("a",new BigDecimal("2"));
+        mapList = new ArrayList<Map<String, BigDecimal>>() {
+            {
+
+                add(row);
+                add(row2);
+
             }
         };
     }
@@ -212,10 +231,16 @@ public class ListTest {
         Stream.iterate(0, UnaryOperator.identity()).limit(10).forEach(System.out::println);
         System.out.println("============================================");
     }
-
+    @Test
     public void testTOMap() {
         stuList.stream().collect(Collectors.toMap(Student::getName,student->student));
+    }
+    @Test
+    public void testTOMap2() {
+        stuList.stream().collect(Collectors.toMap(Student::getName,student->student));
 
+        System.out.println( stuList.stream().map(st->st.getAvgScore()).reduce((a,b)->a.add(b)).orElse(new BigDecimal(0)));
+        System.out.println( stuList.stream().mapToDouble(st->st.getAvgScore().doubleValue()).sum());
 
     }
     @Test
@@ -236,5 +261,32 @@ public class ListTest {
                 .sum());
         //36
 
+    }
+    @Test
+    public  void testRemoveIf(){
+        Predicate<Student> predicate = (student) -> {
+            if ("student1".equals(student.getName())){
+                return true;
+            }
+            return false;
+        };
+        stuList.removeIf(predicate);
+        System.out.println(stuList);
+    }
+    @Test
+    public  void testRemoveIf2(){
+        Predicate<Student> predicate = (student) -> {
+            if ("student1".equals(student.getName())){
+                return true;
+            }
+            return false;
+        };
+        Map<String, List<Student>> studentList = stuList.stream().filter(student ->  student.getName().startsWith("aa")).collect(Collectors.groupingBy(Student::getName));
+        System.out.println(studentList);
+    }
+    @Test
+    public void  testmapToInt(){
+        DoubleSummaryStatistics qtySummary = mapList.stream().collect(Collectors.summarizingDouble(e -> Double.valueOf(e.get("a").doubleValue())));
+        System.out.println(qtySummary.getSum());
     }
 }

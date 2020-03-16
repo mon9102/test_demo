@@ -26,6 +26,21 @@ public class BigDecimalTest {
         System.out.println("bDouble=" + bDouble);
         System.out.println("bString=" + bString);
     }
+    @Test
+    public void testadd(){
+        double v1 = 1;
+        double v2 = 20.2;
+        double v3 = 300.03;
+        double sum =  v1+v2+v3;
+        System.out.println("v1+v2+v3=" +sum);
+
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        BigDecimal b3 = new BigDecimal(Double.toString(v3));
+         sum= b1.add(b2).add(b3).doubleValue();
+        System.out.println("BigDecimal v1+v2+v3=" +sum);
+
+    }
     /**
      * @Description: 这里有一点需要注意的是除法运算divide.
      *
@@ -116,5 +131,12 @@ public class BigDecimalTest {
         BigDecimal[] array = bd1.divideAndRemainder(bd2);
         //[2, 1]  true  true
         System.out.println(Arrays.toString(array) + "  " + array[0].equals(bd_dti) + "  " + array[1].equals(bd_rem));
+    }
+
+    public static void main(String[] args) {
+//        HSSFCell cell = null;
+//        cell.setCellType(HSSFCell.ENCODING_UTF_16);
+
+
     }
 }

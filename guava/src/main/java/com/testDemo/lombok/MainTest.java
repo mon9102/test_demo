@@ -2,6 +2,7 @@ package com.testDemo.lombok;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -83,4 +84,5 @@ public class MainTest {
     public void foo() {
         // Do something
     }
+
 }

@@ -5,6 +5,7 @@ package com.testDemo.jdk8.date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
@@ -421,7 +422,30 @@ public class DateTimeUtils  {
 
         return  localDateTime.minusHours(offsetHour);
     }
+    /**
+     * 得当前时间 月初与月未 如是当月返回 当月1号到现在的日期
+     * @param date  
+     * @return
+    */
+    public  static LocalDateTime[] getSatrtAndEndMonthDay(LocalDateTime date) {
+        LocalDateTime[] re = new LocalDateTime[2];
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime firstday = null;
+        LocalDateTime lastDay = null;
 
+        if (date.getYear() == now.getYear() && now.getMonthValue() == date.getMonthValue()) {
+            //当月
+            firstday = now.with(TemporalAdjusters.firstDayOfMonth());
+            re[1] = now;
+        } else {
+            firstday = date.with(TemporalAdjusters.firstDayOfMonth());
+            lastDay = date.with(TemporalAdjusters.lastDayOfMonth());
+            re[1] = LocalDateTime.of(lastDay.getYear(), lastDay.getMonthValue(), lastDay.getDayOfMonth(), 23, 59, 59);
+
+        }
+        re[0] = LocalDateTime.of(firstday.getYear(), firstday.getMonthValue(), 1, 00, 00, 00);
+        return re;
+    }
 
     public static void main(String[] args) {
         LocalDate a = getOffsetDate(LocalDate.now(),-2);
