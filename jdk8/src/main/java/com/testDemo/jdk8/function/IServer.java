@@ -1,5 +1,7 @@
 package com.testDemo.jdk8.function;
 
+import jdk.nashorn.internal.objects.annotations.Function;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
