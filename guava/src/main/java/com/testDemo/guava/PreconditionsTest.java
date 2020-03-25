@@ -13,7 +13,7 @@ public class PreconditionsTest {
         PreconditionsTest demo = new PreconditionsTest();
 //        demo.doSomething("Jim", 19, "hello world, hello java");
 
-        Preconditions.checkArgument(false, "age must in range (18,99)");
+        Preconditions.checkArgument(true, "age must in range (18,99)");
 
     }
 

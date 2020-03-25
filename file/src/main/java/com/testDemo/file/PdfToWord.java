@@ -84,7 +84,8 @@ public class PdfToWord {
 
 
     public static void main(String[] args) {
-        String pdfFile = "E:\\zouren\\aviva项目\\Aviva-Blue Project Interface\\FPSspecpdf\\";
+//        String pdfFile = "E:\\zouren\\aviva项目\\Aviva-Blue Project Interface\\FPSspecpdf\\";
+        String pdfFile = "E:\\zouren\\2019\\PCML_XPCML\\";
         List<String> files = readfile(pdfFile);
 //        System.out.println(files);
         files.stream().filter(path->path.endsWith("pdf")).forEach(pdf->change(pdf));

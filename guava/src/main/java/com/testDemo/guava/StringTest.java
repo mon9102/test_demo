@@ -49,9 +49,11 @@ public class StringTest {
     public void pad() {
         int minLength = 4;
         String padEndResult = Strings.padEnd("123", minLength, '0');
+//        padEndResult is 1230
         System.out.println("padEndResult is " + padEndResult);
 
         String padStartResult = Strings.padStart("1", 2, '0');
+        // padStartResult is 01
         System.out.println("padStartResult is " + padStartResult);
     }
 
@@ -106,6 +108,7 @@ public class StringTest {
         map.put("a", "b");
         map.put("c", "d");
         String mapJoinResult = Joiner.on(",").withKeyValueSeparator("=").join(map);
+        //a=b,c=d
         System.out.println(mapJoinResult);
 
     }

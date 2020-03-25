@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * @Auther: zouren
@@ -90,8 +92,13 @@ public class DemoPCML {
     }
 
     public static void main(String[] args) {
+        URL classUrl = Thread.currentThread().getContextClassLoader().getResource("");
+        File file = new File(classUrl.toString());
 
+        System.out.println(  file.getParent());
+        String a = Thread.currentThread().getContextClassLoader().getResource("").getPath();
 
+        System.out.println(a);
         ClassLoader var2 = Thread.currentThread().getContextClassLoader();
 //        System.out.println(var2.getResource("/qsyrusri.pcml").getPath());
         System.out.println(var2.getResource("qsyrusri.pcml").getPath());

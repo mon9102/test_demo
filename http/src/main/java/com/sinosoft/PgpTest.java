@@ -1,11 +1,18 @@
 package com.sinosoft;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.sinosoft.util.PgpUtils;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PgpTest {
     public static void main(String[] args) {
@@ -29,4 +36,30 @@ public class PgpTest {
 //        String signFilePath = "C:\\Users\\wangh\\Desktop\\testVerify.txt.asc";
 //        System.out.println(PgpUtils.verifySignature(filePath,publicKeyPath,signFilePath));
     }
+    @Test
+    public void test(){
+        JSONObject object = new JSONObject();
+        JSONObject aa = new JSONObject();
+        aa.put("eee","eee11");
+        object.put("aa",aa);
+        object.put("eee","eeee11");
+        object.put("eee22","eeee22");
+        object.put("bbb","eeee11");
+        System.out.println("未忽略字段前:"+object.toString());//未忽略前
+
+         SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
+         filter.getExcludes().add("eee");
+        System.out.println("忽略字段后:"+ JSON.toJSONString(object,filter));
+        String regex = "\"\\w+\":";
+        System.out.println(getMatcher(regex,object.toString()));
+    }
+    public static String getMatcher(String regex, String source) {
+                 String result = "";
+                 Pattern pattern = Pattern.compile(regex);
+                 Matcher matcher = pattern.matcher(source);
+                 while (matcher.find()) {
+                     System.out.println(matcher.group()+"   matcher.start=="+matcher.start()+" matcher.end=="+matcher.end()+"    key="+source.substring(matcher.start()+1,matcher.end()-2));
+                    }
+                return result;
+             }
 }
