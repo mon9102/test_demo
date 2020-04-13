@@ -1,4 +1,4 @@
-package com.testDemo.hutool.com.testDemo.bean;
+package com.testDemo.bean;
 
 import java.util.List;
 

@@ -4,8 +4,8 @@ import cn.hutool.core.bean.DynaBean;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
-import com.testDemo.hutool.com.testDemo.bean.CustomerRightsPackageDto;
-import com.testDemo.hutool.com.testDemo.bean.CustomerRightsServerDto;
+import com.testDemo.bean.CustomerRightsPackageDto;
+import com.testDemo.bean.CustomerRightsServerDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
