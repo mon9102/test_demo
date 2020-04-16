@@ -1,4 +1,4 @@
-package com.testDemo.netty.cp04.basic;
+package com.testDemo.netty.cp03.basic;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -29,11 +29,12 @@ public class TimeClient {
 
             // 发起异步连接操作
             ChannelFuture f = b.connect(host, port).sync();
-
+            System.out.println("aaa");
             // 当代客户端链路关闭
             f.channel().closeFuture().sync();
         } finally {
             // 优雅退出，释放NIO线程组
+            System.out.println("bbb");
             group.shutdownGracefully();
         }
     }

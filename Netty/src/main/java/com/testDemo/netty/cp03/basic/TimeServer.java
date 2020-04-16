@@ -1,4 +1,4 @@
-package com.testDemo.netty.cp04.basic;
+package com.testDemo.netty.cp03.basic;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -14,12 +14,18 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class TimeServer {
 
+    /**
+     *  NioEventLoopGroup是个线程组，它包括了一组NIO线程 专门用于网络事作的处理，实际上是Reactor线程组
+     * @param port
+     * @throws Exception
+     */
     public void bind(int port) throws Exception {
         // 配置服务端的NIO线程组，一个用于服务端接收客户连接，一个用于socketChannel的网络读写
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            ServerBootstrap b = new ServerBootstrap();//Netty用于启动NIO服务端的输助启动类
+            //ServerBootstrap是Netty用于启动NIO服务端的输助启动类
+            ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)   //对应JDK NIO类库的ServerSocketChannel类
                     .option(ChannelOption.SO_BACKLOG, 1024) //NioServerSocketChannel的TCP参数
@@ -58,5 +64,6 @@ public class TimeServer {
             }
         }
         new TimeServer().bind(port);
+        System.out.println("aaa");
     }
 }

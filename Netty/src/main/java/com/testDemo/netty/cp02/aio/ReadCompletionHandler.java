@@ -28,12 +28,15 @@ public class ReadCompletionHandler implements
      */
     @Override
     public void completed(Integer result, ByteBuffer attachment) {
+        //从缓冲读到数据
         attachment.flip();
         byte[] body = new byte[attachment.remaining()];
         attachment.get(body);
         try {
+            //客户端请求的内容
             String req = new String(body, "UTF-8");
             System.out.println("The time server receive order : " + req);
+            //判断是 QUERY TIME ORDER 返回系统时间
             String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(req) ? new java.util.Date(
                     System.currentTimeMillis()).toString() : "BAD ORDER";
             doWrite(currentTime);
@@ -42,6 +45,10 @@ public class ReadCompletionHandler implements
         }
     }
 
+    /**
+     * 把信息发送给客户端
+     * @param currentTime
+     */
     private void doWrite(String currentTime) {
         //进行合法性校验
         if (currentTime != null && currentTime.trim().length() > 0) {
@@ -72,6 +79,11 @@ public class ReadCompletionHandler implements
         }
     }
 
+    /**
+     * 有异常时 释放资源
+     * @param exc
+     * @param attachment
+     */
     @Override
     public void failed(Throwable exc, ByteBuffer attachment) {
         try {
