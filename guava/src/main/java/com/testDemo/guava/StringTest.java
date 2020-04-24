@@ -6,6 +6,7 @@ import com.google.common.base.Strings;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -89,7 +90,15 @@ public class StringTest {
             System.out.println(String.format("%s=%s", entry.getKey(), entry.getValue()));
         }
     }
-
+    @Test
+    public void Splitter3() {
+        String toSplitString = "id asC,b   desc,a   asc  ";
+        Iterable<String> iterator = Splitter.onPattern("\\s").omitEmptyStrings().split("a   c");
+        System.out.println(iterator);
+        Map<String, String> kvs =  Splitter.on(",").trimResults().withKeyValueSeparator(Splitter.onPattern("\\s").omitEmptyStrings()).split(toSplitString);
+        System.out.println(kvs);
+        kvs.entrySet().stream().forEach(e->System.out.println(e));
+    }
     /**
      * 有拆分字符串必然就有合并字符串，guava为我们提供了Joiner类来做字符串的合并
      */
@@ -114,4 +123,5 @@ public class StringTest {
     }
     public void isnotblank(){
     }
+
 }

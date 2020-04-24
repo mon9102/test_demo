@@ -34,4 +34,11 @@ public class StringUtilsTest {
         System.out.println(StringUtils.substring(symbol, -6));
         System.out.println(StringUtils.substring(symbol, 0,6));
     }
+    @Test
+    public void test222(){
+        String order = "id  asc , aa desC";
+
+        String[] aa = StringUtils.stripAll(order.split(",")," ");
+        System.out.println(aa);
+    }
 }
