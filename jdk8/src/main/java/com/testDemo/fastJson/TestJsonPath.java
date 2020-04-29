@@ -1,5 +1,7 @@
 package com.testDemo.fastJson;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +24,40 @@ public class TestJsonPath {
         System.out.println(2+"   "+JSONPath.size(entity, "$"));
         System.out.println(0+"   "+ JSONPath.size(new Object(), "$"));
     }
-
+    @Test
+    public void test2(){
+        String json = "{\n" +
+                "  \"status\": 0,\n" +
+                "  \"msg\": \"aa\",\n" +
+                "  \"data\": {\n" +
+                "    \"list\": [\n" +
+                "      {\n" +
+                "        \"ocId\": \"权益ID \",\n" +
+                "        \"orderNo\": \"权益ID \",\n" +
+                "        \"ifRightItemFixed\": \"权益责任是否已固定 \",\n" +
+                "        \"productInPack\": {\n" +
+                "          \"productPack\": \"所属的服务产品\",\n" +
+                "          \"servTimes\": \"服务次数\"\n" +
+                "        }\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"ocId\": \"1 \",\n" +
+                "        \"orderNo\": \"1 \",\n" +
+                "        \"ifRightItemFixed\": \"1\",\n" +
+                "        \"productInPack\": {\n" +
+                "          \"productPack\": \"1\",\n" +
+                "          \"servTimes\": \"1\"\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ]\n" +
+                "  }\n" +
+                "}\n";
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        Boolean bb = (Boolean) JSONPath.eval(jsonObject,"$.data.list1[0].ocId");
+        System.out.println(bb);
+        JSONArray aa = (JSONArray)JSONPath.eval(jsonObject,"$.data.list");
+        System.out.println(aa);
+    }
     public static class Entity {
         private Integer id;
         private String name;
