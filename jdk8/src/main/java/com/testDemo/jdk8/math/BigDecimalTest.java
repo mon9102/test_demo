@@ -22,9 +22,16 @@ public class BigDecimalTest {
         BigDecimal bigDecimal = new BigDecimal(2);
         BigDecimal bDouble = new BigDecimal(2.3);
         BigDecimal bString = new BigDecimal("2.3");
+        BigDecimal cDouble =  BigDecimal.valueOf(2.3);
+
+        System.out.println( BigDecimal.valueOf(1)
+                .divide(BigDecimal.valueOf(2),2,BigDecimal.ROUND_UP)
+
+        );
         System.out.println("bigDecimal=" + bigDecimal);
         System.out.println("bDouble=" + bDouble);
         System.out.println("bString=" + bString);
+        System.out.println("cDouble=" + cDouble);
     }
     @Test
     public void testadd(){
