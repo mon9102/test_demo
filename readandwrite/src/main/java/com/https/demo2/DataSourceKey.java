@@ -1,4 +1,4 @@
-package com.sinosoft.demo2;
+package com.https.demo2;
 
 public enum DataSourceKey {
     master,

@@ -1,4 +1,4 @@
-package com.sinosoft.demo2.dao;
+package com.https.demo2.dao;
 
 import java.io.Serializable;
 

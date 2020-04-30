@@ -1,11 +1,7 @@
-package com.sinosoft.demo2.mapper;
+package com.https.demo2.mapper;
 
-import com.sinosoft.demo2.dao.Product;
+import com.https.demo2.dao.Product;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 @Mapper
 public interface ProductMapper {

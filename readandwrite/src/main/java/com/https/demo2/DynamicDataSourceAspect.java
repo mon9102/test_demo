@@ -1,4 +1,4 @@
-package com.sinosoft.demo2;
+package com.https.demo2;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -16,7 +16,7 @@ public class DynamicDataSourceAspect {
 
     private final String[] QUERY_PREFIX = {"select"};
 
-    @Pointcut("execution( * com.sinosoft.demo2.mapper.*.*(..))")
+    @Pointcut("execution( * com.https.demo2.mapper.*.*(..))")
     public void daoAspect() {
     }
 

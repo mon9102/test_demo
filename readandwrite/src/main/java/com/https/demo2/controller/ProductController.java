@@ -1,7 +1,7 @@
-package com.sinosoft.demo2.controller;
+package com.https.demo2.controller;
 
-import com.sinosoft.demo2.dao.Product;
-import com.sinosoft.demo2.mapper.ProductMapper;
+import com.https.demo2.dao.Product;
+import com.https.demo2.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
