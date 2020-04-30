@@ -18,7 +18,7 @@ public class FileUtil {
 
     @Test
     public void delFile() {
-        String mavenRepository = "D:/mavenRepository";
+        String mavenRepository = "D:\\Program Files\\maven-repository";
 
         Set<String> re = new HashSet<String>(100000);
 

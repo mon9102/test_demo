@@ -15,6 +15,7 @@ public class CollectionUtilTest {
         List list = new ArrayList();
         System.out.println(list.toString());
         System.out.println(CollectionUtil.isNotEmpty(list));
+
     }
 
     public void test1() {
