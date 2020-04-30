@@ -1,15 +1,13 @@
-package com.sinosoft.controller;
+package com.http.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.sinosoft.HttpClientforSSLConfig;
-import com.sinosoft.pgp.BCPGPDecryptor;
-import com.sinosoft.pgp.BCPGPEncryptor;
-import com.sinosoft.pgp.Decrypt;
-import com.sinosoft.pgp.Encrypt;
-import com.sinosoft.util.HttpClientforSSLInterface;
-import com.sinosoft.util.HttpClientforSSLOne;
-import com.sinosoft.util.PgpUtils;
+import com.http.HttpClientforSSLConfig;
+import com.http.pgp.BCPGPDecryptor;
+import com.http.pgp.BCPGPEncryptor;
+import com.http.pgp.Decrypt;
+import com.http.pgp.Encrypt;
+import com.http.util.PgpUtils;
+import com.http.util.HttpClientforSSLInterface;
 import io.swagger.annotations.*;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package com.sinosoft;
+package com.http;
 
 
 import com.alibaba.fastjson.JSONException;

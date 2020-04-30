@@ -1,4 +1,4 @@
-package com.sinosoft.util;
+package com.http.util;
 
 import org.bouncycastle.bcpg.BCPGOutputStream;
 import org.bouncycastle.bcpg.PublicKeyAlgorithmTags;

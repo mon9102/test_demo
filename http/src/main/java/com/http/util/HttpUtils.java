@@ -1,4 +1,4 @@
-package com.sinosoft.util;
+package com.http.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

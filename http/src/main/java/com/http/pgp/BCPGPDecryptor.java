@@ -1,4 +1,4 @@
-package com.sinosoft.pgp;
+package com.http.pgp;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,11 +13,8 @@ import java.security.Security;
 import java.util.Iterator;
 
 import org.apache.commons.io.IOUtils;
-import org.bouncycastle.bcpg.HashAlgorithmTags;
-import org.bouncycastle.bcpg.SymmetricKeyAlgorithmTags;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openpgp.PGPCompressedData;
-import org.bouncycastle.openpgp.PGPCompressedDataGenerator;
 import org.bouncycastle.openpgp.PGPEncryptedDataList;
 import org.bouncycastle.openpgp.PGPException;
 import org.bouncycastle.openpgp.PGPLiteralData;

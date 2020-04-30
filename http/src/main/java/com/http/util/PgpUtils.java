@@ -1,4 +1,4 @@
-package com.sinosoft.util;
+package com.http.util;
 
 import java.io.*;
 import java.security.GeneralSecurityException;

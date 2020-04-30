@@ -1,4 +1,4 @@
-package com.sinosoft.pgp;
+package com.http.pgp;
 
 import java.io.IOException;
 

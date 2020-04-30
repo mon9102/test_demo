@@ -1,4 +1,4 @@
-package com.sinosoft.pgp;
+package com.http.pgp;
 
 public class AlgorithmUtils {
     public AlgorithmUtils() {

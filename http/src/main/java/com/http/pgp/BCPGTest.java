@@ -1,4 +1,4 @@
-package com.sinosoft.pgp;
+package com.http.pgp;
 
 import java.security.Security;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;

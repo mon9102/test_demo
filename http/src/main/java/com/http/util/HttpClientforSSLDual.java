@@ -1,7 +1,5 @@
-package com.sinosoft.util;
+package com.http.util;
 
-import static com.sinosoft.util.HttpClientforSSLOne.CONNECTION_MANAGER;
-import static com.sinosoft.util.HttpClientforSSLOne.convertStreamToString;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

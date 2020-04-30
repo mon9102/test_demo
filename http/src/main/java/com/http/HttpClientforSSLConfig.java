@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sinosoft;
+package com.http;
 
-import com.sinosoft.util.HttpClientforSSLDual;
-import com.sinosoft.util.HttpClientforSSLInterface;
-import com.sinosoft.util.HttpClientforSSLOne;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import com.http.util.HttpClientforSSLOne;
+import com.http.util.HttpClientforSSLDual;
+import com.http.util.HttpClientforSSLInterface;
 import org.springframework.stereotype.Component;
 
 /**
