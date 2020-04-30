@@ -1,10 +1,5 @@
-package com.sinosoft.rabbitmq.config.controller;
+package com.https.rabbitmq.config.controller;
 
-import org.springframework.amqp.core.ExchangeTypes;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;

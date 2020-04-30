@@ -1,4 +1,4 @@
-package com.sinosoft.rabbitmq.config;
+package com.https.rabbitmq.config;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;

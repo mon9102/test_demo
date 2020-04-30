@@ -1,6 +1,6 @@
-package com.sinosoft.rabbitmq;
+package com.https.rabbitmq;
 
-import com.sinosoft.rabbitmq.config.controller.RabbitSender;
+import com.https.rabbitmq.config.controller.RabbitSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

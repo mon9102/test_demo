@@ -1,4 +1,4 @@
-package com.sinosoft.rabbitmq.delay;
+package com.https.rabbitmq.delay;
 
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

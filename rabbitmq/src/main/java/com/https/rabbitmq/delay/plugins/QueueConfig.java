@@ -1,13 +1,12 @@
-package com.sinosoft.rabbitmq.delay.plugins;
+package com.https.rabbitmq.delay.plugins;
 
-import com.sinosoft.rabbitmq.delay.QueueEnum;
+import com.https.rabbitmq.delay.QueueEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.CustomExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;

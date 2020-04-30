@@ -1,7 +1,7 @@
-package com.sinosoft.rabbitmq;
+package com.https.rabbitmq;
 
-import com.sinosoft.rabbitmq.delay.MessageProvider;
-import com.sinosoft.rabbitmq.delay.QueueEnum;
+import com.https.rabbitmq.delay.MessageProvider;
+import com.https.rabbitmq.delay.QueueEnum;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * @Auther: zouren

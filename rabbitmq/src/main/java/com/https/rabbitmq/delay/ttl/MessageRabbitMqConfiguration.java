@@ -1,9 +1,8 @@
-package com.sinosoft.rabbitmq.delay.ttl;
+package com.https.rabbitmq.delay.ttl;
 
-import com.sinosoft.rabbitmq.delay.QueueEnum;
+import com.https.rabbitmq.delay.QueueEnum;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 
 /**

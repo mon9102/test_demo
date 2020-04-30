@@ -1,4 +1,4 @@
-package com.sinosoft.rabbitmq.delay;
+package com.https.rabbitmq.delay;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;

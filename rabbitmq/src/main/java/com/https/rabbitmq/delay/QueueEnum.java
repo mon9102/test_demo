@@ -1,4 +1,4 @@
-package com.sinosoft.rabbitmq.delay;
+package com.https.rabbitmq.delay;
 
 
 import lombok.Getter;
