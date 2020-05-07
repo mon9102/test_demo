@@ -26,4 +26,22 @@ public class SwitchTest {
                 //语句
         }
     }
+    @Test
+    public void switchTest2(){
+        MySymbol i=MySymbol.WAIHUI;
+        switch(i){
+            case WAIHUI:
+                //语句
+                System.out.println(1);
+                break; //可选
+            case  HUANGJIN:
+                //语句
+                System.out.println(2);
+
+                break; //可选
+            //你可以有任意数量的case语句
+            default : //可选
+                //语句
+        }
+    }
 }
