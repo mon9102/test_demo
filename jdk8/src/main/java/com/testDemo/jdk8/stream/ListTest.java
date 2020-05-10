@@ -78,6 +78,9 @@ public class ListTest {
                 .map(Student::getName)
                 .collect(toList());
         System.out.println(studentList);
+        Student test = stuList.stream() .filter(x -> x.getScore() > 85).findFirst().get();
+        System.out.println(test);
+
     }
 
     @Test
