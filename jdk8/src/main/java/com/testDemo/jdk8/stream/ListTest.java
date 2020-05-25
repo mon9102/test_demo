@@ -159,7 +159,21 @@ public class ListTest {
         long n = words.distinct().count();
         System.out.println(n);
     }
+    /**
+     *  根据name去重
+     * @return
+    */
+    @Test
+    public void collectingAndThen(){
+        stuList.add(new Student("student" + 9, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+        stuList.add(new Student("student" + 9, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+        System.out.println(stuList);
 
+        Stream<Student> s =stuList.stream();
+        List<Student> personList = s.collect(Collectors
+                .collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(o -> o.getName()))), ArrayList::new));
+        System.out.println(personList);
+    }
     /**
      * 延迟执行特性，会产生干扰
      * nullPointException
