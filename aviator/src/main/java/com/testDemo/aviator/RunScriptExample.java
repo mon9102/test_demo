@@ -81,6 +81,9 @@ public class RunScriptExample {
         Compilable compilable = (Compilable) engine;
         CompiledScript script = compilable.compile("a + b");
         CompiledScript script2 = compilable.compile("a + b>c");
+        CompiledScript script3 = compilable.compile("if(true) {\n" +
+                "   println(\"in if body\");\n" +
+                "}");
 
         final Bindings bindings = engine.createBindings();
         bindings.put("a", 99);
@@ -88,6 +91,7 @@ public class RunScriptExample {
         bindings.put("c", 1);
         System.out.println(script.eval(bindings));
         System.out.println(script2.eval(bindings));
+        System.out.println(script3.eval(bindings));
 
     }
     /**
