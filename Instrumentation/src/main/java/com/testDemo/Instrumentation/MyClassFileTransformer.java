@@ -4,11 +4,11 @@ package com.testDemo.Instrumentation;
 import javassist.*;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
-import java.util.Iterator;
 
 /**
  * @Auther: zouren
@@ -21,8 +21,14 @@ public class MyClassFileTransformer implements ClassFileTransformer {
     public static void premain(String args, Instrumentation inst) {
         //注册我自己的字节码转换器
 
-//        System.out.println("MyClassFileTransformer.premain");
-
+        System.out.println("MyClassFileTransformer.premain");
+        PrintStream myStream = new PrintStream(System.out) {
+            @Override
+            public void println(String x) {
+                super.println(System.currentTimeMillis() + ": " + x);
+            }
+        };
+        System.setOut(myStream);
         inst.addTransformer(new MyClassFileTransformer());
     }
 
@@ -34,9 +40,10 @@ public class MyClassFileTransformer implements ClassFileTransformer {
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                             ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
 
-        if(!(className.startsWith("com/sinosoft/")||className.startsWith("com/testDemo/"))){
+        if(!(className.startsWith("com/sinosoft/")||className.startsWith("com/testDemo/"))||className.startsWith("java/io")){
             return null;
         }
+
         System.out.println("MyClassFileTransformer.transform=="+className+"==start===");
 
         //javassist的包名是用点分割的，需要转换下
