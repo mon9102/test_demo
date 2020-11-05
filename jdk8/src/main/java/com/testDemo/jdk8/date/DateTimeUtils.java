@@ -2,6 +2,7 @@ package com.testDemo.jdk8.date;
 
 
 
+import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -448,15 +449,17 @@ public class DateTimeUtils  {
     }
 
     public static void main(String[] args) {
-        LocalDate a = getOffsetDate(LocalDate.now(),-2);
+        System.out.println(        BigDecimal.ZERO.compareTo(BigDecimal.valueOf(1)) < 0);
+
+//        LocalDate a = getOffsetDate(LocalDate.now(),-2);
 
 //        System.out.println(a.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 //        System.out.printf(String.valueOf(daysDiff(LocalDate.now(),getOffsetDate(LocalDate.now(),20))));
-        LocalDate localDate1 =  LocalDate.parse("2004-02-29");
-        LocalDate localDate2 =  LocalDate.of(2006,3,1);
-
-
-
-        System.out.println(YEARS.between(localDate1,localDate2));
+//        LocalDate localDate1 =  LocalDate.parse("2004-02-29");
+//        LocalDate localDate2 =  LocalDate.of(2006,3,1);
+//
+//
+//
+//        System.out.println(YEARS.between(localDate1,localDate2));
     }
 }

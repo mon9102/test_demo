@@ -9,3 +9,9 @@ TCP以流的方式进行数据传输，上层的应用协议为了对消息进�
 
 （4）通过在消息头中定义长度字段来标识消息的长度。
 
+
+###DelimiterBasedFrameDecoder和FixedLengthFrameDecoder
+1.DelimiterBasedFrameDecoder以分隔符做结速标志
+2.FixedLengthFrameDecoder定长消息做结速标志，无论一次接收多少数据包，它都会按照构造函数中
+设置的固定长度进行解码，如果是半包消息，会缓存半包消息并等待下个包达到后进行拼包
+直到读取到一个完整的包

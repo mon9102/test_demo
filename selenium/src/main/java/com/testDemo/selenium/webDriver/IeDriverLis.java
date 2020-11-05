@@ -18,6 +18,7 @@ import org.openqa.selenium.remote.HttpCommandExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,12 @@ public class IeDriverLis {
         return internetExplorerDriver;
     }
 
-
+    /**
+     * 进入首页并登陆
+     * @param url
+     * @param username
+     * @param password
+     */
     public void index(String url,String username,String password){
         indexUrl = url;
         InternetExplorerDriver webDriver=getInternetExplorerDriver();
@@ -68,6 +74,27 @@ public class IeDriverLis {
         InputUtils.click(fraInterface,"[name=submit2]");
         System.out.println("index====end");
 
+    }
+
+    /**
+     * 登陆
+     * @throws MalformedURLException
+     */
+    public void login() throws MalformedURLException {
+        System.out.println("login====start");
+        Props props = new Props(testPropConfig.getProp() + testPropConfig.getFils().get("webDriver"));
+        String sid = props.getStr("sessionid");
+        String url = props.getStr("serverUrl");
+        String username = props.getStr("username");
+        String password = props.getStr("password");
+        ReuseWebDriver driver = new ReuseWebDriver(url, sid);
+        WebDriver fraInterface = IframeUtils.chageIframe(driver,"#fraInterface");
+        WaitUtils.wiatByCssSelector(fraInterface,"#UserCode2");
+        InputUtils.setValue(fraInterface,"#UserCode2",username);
+        InputUtils.setValue(fraInterface,"#PWD2",password);
+        InputUtils.setValue(fraInterface,"#PWD2",password);
+        InputUtils.click(fraInterface,"[name=submit2]");
+        System.out.println("login====end");
     }
 
     /**

@@ -15,6 +15,8 @@ import io.netty.handler.logging.LoggingHandler;
 
 /**
  * FixedLengthFrameDecoder 使用定长来做分隔
+ * 20长度信息
+ *
  */
 public class EchoServer {
     public void bind(int port) throws Exception {
@@ -32,7 +34,7 @@ public class EchoServer {
 			public void initChannel(SocketChannel ch)
 				throws Exception {
 			    ch.pipeline().addLast(
-				    new FixedLengthFrameDecoder(20));//增加分隔
+				    new FixedLengthFrameDecoder(20));//20长度
 			    ch.pipeline().addLast(new StringDecoder());
 			    ch.pipeline().addLast(new EchoServerHandler());
 			}

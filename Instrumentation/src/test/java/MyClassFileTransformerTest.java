@@ -1,5 +1,7 @@
 import com.testDemo.Instrumentation.Business;
 
+import java.io.PrintStream;
+
 /**
  * 打成包把之后与javassist-3.24.1-GA.jar放到同级，
  * 把两个包放到项目中的lib中。
@@ -7,11 +9,11 @@ import com.testDemo.Instrumentation.Business;
  * -javaagent: 打成包的物理路径
  */
 public class MyClassFileTransformerTest {
-	 public static void main(String[] args){  
-		 
+	 public static void main(String[] args){
+
 	        System.out.println("main MyClassFileTransformerTest of proxy!");
 		 Business business = new Business();
 		 business.doSomeThing2();
-		 business.aa("哈哈");
+//		 business.aa("哈哈");
 	    }  
 }

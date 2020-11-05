@@ -37,7 +37,7 @@ public class AsyncTimeClientHandler implements
         latch = new CountDownLatch(1);
         //发起异步，
         // attachment:AsynchronousSocketChanne的附件，用于回调通知时作为入参被传递，调用者可以自定义
-        //handler: 异步操作回调通知接口，由调用者实现
+        //handler: 异步操作回调通知接口，由调用者实现CompletionHandler
         client.connect(new InetSocketAddress(host, port), this, this);
         try {
             latch.await();
@@ -57,7 +57,9 @@ public class AsyncTimeClientHandler implements
         ByteBuffer writeBuffer = ByteBuffer.allocate(req.length);
         writeBuffer.put(req);
         writeBuffer.flip();
+        //异步写入
         client.write(writeBuffer, writeBuffer,
+                //写成功的回调
                 new CompletionHandler<Integer, ByteBuffer>() {
                     @Override
                     public void completed(Integer result, ByteBuffer buffer) {
@@ -65,9 +67,11 @@ public class AsyncTimeClientHandler implements
                             client.write(buffer, buffer, this);
                         } else {
                             ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+                            //异步读取服务端响应的信息
                             client.read(
                                     readBuffer,
                                     readBuffer,
+                                    //读取内容并打印结果
                                     new CompletionHandler<Integer, ByteBuffer>() {
                                         @Override
                                         public void completed(Integer result,

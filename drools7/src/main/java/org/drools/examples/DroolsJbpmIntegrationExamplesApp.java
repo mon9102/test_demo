@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
 public class DroolsJbpmIntegrationExamplesApp extends JFrame {
 
     public static void main(String[] args) {
+        org.codehaus.jackson.Versioned a;
+        org.codehaus.jackson.map.JsonMappingException b;
         DroolsJbpmIntegrationExamplesApp droolsJbpmIntegrationExamplesApp = new DroolsJbpmIntegrationExamplesApp();
         droolsJbpmIntegrationExamplesApp.pack();
         droolsJbpmIntegrationExamplesApp.setVisible(true);

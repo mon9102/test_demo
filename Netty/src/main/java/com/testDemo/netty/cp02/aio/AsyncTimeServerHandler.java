@@ -17,6 +17,10 @@ public class AsyncTimeServerHandler implements Runnable {
     CountDownLatch latch;
     AsynchronousServerSocketChannel asynchronousServerSocketChannel;
 
+    /**
+     * AsynchronousServerSocketChannel为异步服务端  邦定监听
+     * @param port
+     */
     public AsyncTimeServerHandler(int port) {
         this.port = port;
         try {
@@ -50,6 +54,7 @@ public class AsyncTimeServerHandler implements Runnable {
     }
 
     public void doAccept() {
+        //异步服务端接收到客户端连接时 ，调用 AcceptCompletionHandler来操作接收的消息
         asynchronousServerSocketChannel.accept(this,
                 new AcceptCompletionHandler());
     }

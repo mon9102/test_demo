@@ -25,8 +25,19 @@ public class MapTest {
     @Test
     public void testJoin(){
         Map<String,String> m =  getMap();
-       String a = m.entrySet().stream().map(entry->String.format("%s=%s", entry.getKey(), entry.getValue()))
-               .collect(Collectors.joining("&"));
+        String a = m.entrySet().stream().map(entry->String.format("%s=%s", entry.getKey(), entry.getValue()))
+                .collect(Collectors.joining("&"));
+//        a=1&b=2&c=3&d=4
+        System.out.println(a);
+    }
+    @Test
+    public void testMapKey(){
+        Map<String,String> m =  getMap();
+        String a = m.entrySet().stream().map(entry->{
+            System.out.println(entry.getKey());
+            return String.format("%s=%s", entry.getKey(), entry.getValue());
+        })
+                .collect(Collectors.joining("&"));
 //        a=1&b=2&c=3&d=4
         System.out.println(a);
     }

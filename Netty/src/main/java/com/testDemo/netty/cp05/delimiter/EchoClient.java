@@ -13,6 +13,9 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
+/**
+ * 使用 $_ 作为分隔符
+ */
 public class EchoClient {
 
     public void connect(int port, String host) throws Exception {

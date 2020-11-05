@@ -17,6 +17,7 @@ import io.netty.handler.logging.LoggingHandler;
 
 /**
  * 使用DelimiterBasedFrameDecoder来设置特殊字符作为消息的结束标志
+ * 使用 $_ 作为分隔符
  */
 public class EchoServer {
     public void bind(int port) throws Exception {
@@ -33,8 +34,10 @@ public class EchoServer {
                         @Override
                         public void initChannel(SocketChannel ch)
                                 throws Exception {
+                            //分隔符
                             ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes());
                             ch.pipeline().addLast(
+                                    //最大消息长度，防止异常缺失分隔符导致内存溢出
                                     new DelimiterBasedFrameDecoder(1024, delimiter));
                             ch.pipeline().addLast(new StringDecoder());
                             ch.pipeline().addLast(new EchoServerHandler());

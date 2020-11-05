@@ -127,6 +127,8 @@ public class MultiplexerTimeServer implements Runnable {
                     //读到0字节忽略
                 }
             }
+//            if(key.isWritable())
+
         }
     }
 

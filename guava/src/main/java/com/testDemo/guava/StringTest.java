@@ -5,8 +5,12 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Auther: zouren
@@ -49,9 +53,11 @@ public class StringTest {
     public void pad() {
         int minLength = 4;
         String padEndResult = Strings.padEnd("123", minLength, '0');
+//        padEndResult is 1230
         System.out.println("padEndResult is " + padEndResult);
 
         String padStartResult = Strings.padStart("1", 2, '0');
+        // padStartResult is 01
         System.out.println("padStartResult is " + padStartResult);
     }
 
@@ -87,7 +93,15 @@ public class StringTest {
             System.out.println(String.format("%s=%s", entry.getKey(), entry.getValue()));
         }
     }
-
+    @Test
+    public void Splitter3() {
+        String toSplitString = "id asC,b   desc,a   asc  ";
+        Iterable<String> iterator = Splitter.onPattern("\\s").omitEmptyStrings().split("a   c");
+        System.out.println(iterator);
+        Map<String, String> kvs =  Splitter.on(",").trimResults().withKeyValueSeparator(Splitter.onPattern("\\s").omitEmptyStrings()).split(toSplitString);
+        System.out.println(kvs);
+        kvs.entrySet().stream().forEach(e->System.out.println(e));
+    }
     /**
      * 有拆分字符串必然就有合并字符串，guava为我们提供了Joiner类来做字符串的合并
      */
@@ -101,14 +115,28 @@ public class StringTest {
      * Splitter方法可以对字符串做二次的拆分，对应的Joiner也可以逆向操作，将Map<String,String>做合并
      */
     @Test
-    public void Joiner2() {
+    public void Joiner2() throws Exception{
         Map<String,String> map = new HashMap<String,String>();
         map.put("a", "b");
         map.put("c", "d");
         String mapJoinResult = Joiner.on(",").withKeyValueSeparator("=").join(map);
-        System.out.println(mapJoinResult);
 
+        //a=b,c=d
+        System.out.println(mapJoinResult);
+        System.out.println(URLEncoder.encode(mapJoinResult,"UTF-8"));
+        String str = map.entrySet().stream().map(row->row.getKey()+"="+encode(row.getValue())).collect(Collectors.joining("&"));
+        System.out.println(str);
+    }
+    public String encode(String value){
+        String re = null;
+        try {
+            re= URLEncoder.encode(value,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return re;
     }
     public void isnotblank(){
     }
+
 }

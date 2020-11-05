@@ -1,5 +1,6 @@
 package com.testDemo.jdk8.stream;
 
+import cn.hutool.core.bean.DynaBean;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,6 +79,9 @@ public class ListTest {
                 .map(Student::getName)
                 .collect(toList());
         System.out.println(studentList);
+        Student test = stuList.stream() .filter(x -> x.getScore() > 85).findFirst().get();
+        System.out.println(test);
+
     }
 
     @Test
@@ -156,7 +160,38 @@ public class ListTest {
         long n = words.distinct().count();
         System.out.println(n);
     }
+    /**
+     *  根据name去重
+     * @return
+    */
+    @Test
+    public void collectingAndThen(){
+        stuList.add(new Student("student" + 9, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+        stuList.add(new Student("student" + 9, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+        System.out.println(stuList);
 
+        Stream<Student> s =stuList.stream();
+        List<Student> personList = s.collect(Collectors
+                .collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(o -> o.getName()))), ArrayList::new));
+        System.out.println(personList);
+    }
+    public void collectingAndThen2(){
+        Students s = new Students();
+        s.setName("A");
+        s.setStudentList(stuList);
+        ArrayList<Student> stuList2 = new ArrayList<Student>();
+        Students s2 = new Students();
+        s2.setName("A2");
+        stuList2.add(new Student("student" + 9, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+        stuList2.add(new Student("student" + 9, random.nextInt(50) + 50,new BigDecimal(300.03+"")));
+        s2.setStudentList(stuList2);
+        ArrayList<Students> test = new ArrayList<Students>();
+        test.add(s);
+        test.add(s2);
+//        List<Student> ss = test.stream().filter(row->row.getName().startsWith("A"))
+//                .map(row->row.getStudentList()).collect(toCollection());
+
+    }
     /**
      * 延迟执行特性，会产生干扰
      * nullPointException
@@ -288,5 +323,43 @@ public class ListTest {
     public void  testmapToInt(){
         DoubleSummaryStatistics qtySummary = mapList.stream().collect(Collectors.summarizingDouble(e -> Double.valueOf(e.get("a").doubleValue())));
         System.out.println(qtySummary.getSum());
+    }
+    @Test
+    public void testParam(){
+
+        testParam(stuList,"score",10,"name","aa");
+
+    }
+    private  <T>List<T> testParam(List<T> list,Object...param){
+        Map<String,Object> paramMap = new HashMap();
+        System.out.println(list);
+        if(param!=null&&param.length%2!=0){
+            System.out.println("aaaa");
+        }else {
+            for (int i = 0; i < param.length; i++) {
+                paramMap.put(param[i].toString(),param[++i]);
+            }
+        }
+        //追加内容
+        if(paramMap.size()>0){
+            list.stream().forEach(row->{
+                DynaBean bean = DynaBean.create(row);
+                paramMap.entrySet().forEach(paramRow->{
+                    bean.set(paramRow.getKey(),paramRow.getValue());
+                });
+
+            });
+        }
+
+        System.out.println(list);
+        System.out.println(paramMap);
+        return list;
+    }
+    @Test
+    public void testStream(){
+        Students students = new Students();
+
+        students.getStudentList().stream().forEach(row->System.out.println(row));
+        System.out.println("====");
     }
 }

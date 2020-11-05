@@ -20,6 +20,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
      * Creates a client-side handler.
      */
     public TimeClientHandler() {
+    	// System.getProperty("line.separator")= 换行符， 把换行符做为结束标记
 	req = ("QUERY TIME ORDER" + System.getProperty("line.separator"))
 		.getBytes();
     }

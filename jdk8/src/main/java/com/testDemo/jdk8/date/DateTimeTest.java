@@ -38,6 +38,12 @@ public class DateTimeTest {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
         System.out.println(now.format(formatter));
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+        //将localDateTime转换成时间戳
+
+        System.out.println("localDateTime:"+java.sql.Timestamp.valueOf(localDateTime).getTime());
+
     }
     @Test
     public void test3() {

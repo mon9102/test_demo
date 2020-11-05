@@ -36,7 +36,7 @@ public class IeDriverLisTest {
 
     @Test
     public void index() {
-
+        ieDriverLis.index("http://sinosoft.vicp.hk/dev/", "001", "001");
     }
 
     @Test
