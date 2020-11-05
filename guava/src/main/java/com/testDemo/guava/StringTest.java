@@ -5,9 +5,12 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Auther: zouren
@@ -112,14 +115,26 @@ public class StringTest {
      * Splitter方法可以对字符串做二次的拆分，对应的Joiner也可以逆向操作，将Map<String,String>做合并
      */
     @Test
-    public void Joiner2() {
+    public void Joiner2() throws Exception{
         Map<String,String> map = new HashMap<String,String>();
         map.put("a", "b");
         map.put("c", "d");
         String mapJoinResult = Joiner.on(",").withKeyValueSeparator("=").join(map);
+
         //a=b,c=d
         System.out.println(mapJoinResult);
-
+        System.out.println(URLEncoder.encode(mapJoinResult,"UTF-8"));
+        String str = map.entrySet().stream().map(row->row.getKey()+"="+encode(row.getValue())).collect(Collectors.joining("&"));
+        System.out.println(str);
+    }
+    public String encode(String value){
+        String re = null;
+        try {
+            re= URLEncoder.encode(value,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return re;
     }
     public void isnotblank(){
     }

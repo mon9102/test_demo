@@ -1,5 +1,6 @@
 package com.testDemo.fastJson;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
@@ -23,6 +24,18 @@ public class TestJsonPath {
         System.out.println(JSONPath.containsValue(entity, "$.value", entity.getValue()));
         System.out.println(2+"   "+JSONPath.size(entity, "$"));
         System.out.println(0+"   "+ JSONPath.size(new Object(), "$"));
+    }
+    @Test
+    public void tes3(){
+        String text1 = "{\"apiCode\":\"hmiapp-0101\"}";
+        String text = "{apiCode:hmiapp-0101}";
+        System.out.println(JSONObject.parseObject(text));
+    }
+    @Test
+    public void tes4(){
+        Entity entity = new Entity(123, new Object());
+        JSON jsonObject = (JSON) JSONObject.toJSON(entity);
+        System.out.println(jsonObject);
     }
     @Test
     public void test2(){

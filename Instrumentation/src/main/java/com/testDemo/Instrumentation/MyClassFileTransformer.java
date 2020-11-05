@@ -17,7 +17,14 @@ import java.security.ProtectionDomain;
  */
 public class MyClassFileTransformer implements ClassFileTransformer {
 
-
+    public String argsToString(Object[] args){
+        String re = null;
+        if(args!=null){
+            int len = args.length;
+//            re = JSo
+        }
+        return re;
+    }
     public static void premain(String args, Instrumentation inst) {
         //注册我自己的字节码转换器
 
