@@ -20,6 +20,12 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 public class HttpFileServer {
     private static final String DEFAULT_URL = "/Netty/src/main/java/com/testDemo/netty/";
 
+    /**
+     *
+     * @param port 服务商品
+     * @param url 当前项目的文件夹路径
+     * @throws Exception
+     */
     public void run(final int port, final String url) throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

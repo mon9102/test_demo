@@ -34,51 +34,51 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
-        if (!request. getDecoderResult () . isSuccess ()) {
-           //对http消息的解码失败  400
+        if (!request.getDecoderResult().isSuccess()) {
+            //对http消息的解码失败  400
             sendError(ctx, HttpResponseStatus.BAD_REQUEST);
             return;
         }
 
-        if (request.getMethod() !=   HttpMethod.GET){
+        if (request.getMethod() != HttpMethod.GET) {
             //判断是从浏览器或者表单设置为GRT请求  405
             sendError(ctx, HttpResponseStatus.METHOD_NOT_ALLOWED);
             return;
         }
-        final String uri=request.getUri();
-        final String path=sanitizeUri(uri);
-        if(path==null){
+        final String uri = request.getUri();
+        final String path = sanitizeUri(uri);
+        if (path == null) {
             //uri不合法，返回403
             sendError(ctx, HttpResponseStatus.FORBIDDEN);
             return;
         }
         //使用新的路径构造File对象
-      File file = new File(path);
-        if(file.isHidden()||!file.exists()){
+        File file = new File(path);
+        if (file.isHidden() || !file.exists()) {
             //文件不存在或者系统隐藏文件 404
             sendError(ctx, HttpResponseStatus.NOT_FOUND);
             return;
         }
-        if(file.isDirectory()){
+        if (file.isDirectory()) {
             //如是文件目录，则发送目录链接给客户端浏览器
-            if(uri.endsWith("/")){
-                sendListing(ctx,file);
-            }else {
-                sendRedirect(ctx,uri+"/");
+            if (uri.endsWith("/")) {
+                sendListing(ctx, file);
+            } else {
+                sendRedirect(ctx, uri + "/");
             }
             return;
         }
 
-        if(!file.isFile()){
+        if (!file.isFile()) {
             //不是合法文件 返回 403
-          sendError(ctx, HttpResponseStatus.FORBIDDEN);
+            sendError(ctx, HttpResponseStatus.FORBIDDEN);
             return;
         }
         //随机文件读写类
         RandomAccessFile randomAccessFile = null;
         try {
             //以只读方式打开文件
-            randomAccessFile = new RandomAccessFile(file,"r");
+            randomAccessFile = new RandomAccessFile(file, "r");
         } catch (FileNotFoundException e) {
             //文件打开失败 404
             sendError(ctx, HttpResponseStatus.NOT_FOUND);
@@ -86,26 +86,26 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         }
         //文件长度
         long fileLength = randomAccessFile.length();
-        HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
+        HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         //消息头设置
-        setContentLength(response,fileLength);
-        setContentTypeHeader(response,file);
+        setContentLength(response, fileLength);
+        setContentTypeHeader(response, file);
         //判断KeepAlive
-        if(isKeepAlive(request)){
-            response.headers().set(CONNECTION,HttpHeaders.Values.KEEP_ALIVE);
+        if (isKeepAlive(request)) {
+            response.headers().set(CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
         }
         //发送响应信息
         ctx.write(response);
         //通过Netty的ChunkedFile对象直接将文件写入到发送缓冲区
-        ChannelFuture sendFileFuture = ctx.write(new ChunkedFile(randomAccessFile,0,fileLength,8192)
-        ,ctx.newProgressivePromise());
+        ChannelFuture sendFileFuture = ctx.write(new ChunkedFile(randomAccessFile, 0, fileLength, 8192)
+                , ctx.newProgressivePromise());
         sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
             @Override
             public void operationProgressed(ChannelProgressiveFuture channelProgressiveFuture, long progress, long total) throws Exception {
-                if(total<0){
-                    System.err.println("Transfer progress:"+progress);
-                }else {
-                    System.err.println("Transfer progress:"+progress+"/"+total);
+                if (total < 0) {
+                    System.err.println("Transfer progress:" + progress);
+                } else {
+                    System.err.println("Transfer progress:" + progress + "/" + total);
                 }
             }
 
@@ -122,7 +122,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         //chunked编码，最后需要发一个编码结束的空消息体，将LastHttpContent的EMPTY_LAST_CONTENT发送到缓冲区
         //标识所有的消息体已经发送完成，同时调用flush方法将之前在发送缓冲区的消息刷新到SocketChannel中发送给对方
         ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
-        if(!isKeepAlive(request)){
+        if (!isKeepAlive(request)) {
             //非KeepAlive服务端主动关闭连接
             lastContentFuture.addListener(ChannelFutureListener.CLOSE);
 
@@ -132,57 +132,61 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
-        if(ctx.channel().isActive()){
+        if (ctx.channel().isActive()) {
             sendError(ctx, HttpResponseStatus.INTERNAL_SERVER_ERROR);
 
         }
     }
-    private static final Pattern INSECURE_URI=Pattern.compile(".*[<>&\"].*");
+
+    private static final Pattern INSECURE_URI = Pattern.compile(".*[<>&\"].*");
 
     /**
      * 对uri进行urlDecoder解码
+     *
      * @param uri 使用当前运行程序的工程目录+uri构造绝对路径返回
      * @return
      */
-    private String sanitizeUri(String uri){
+    private String sanitizeUri(String uri) {
         try {
-            uri = URLDecoder.decode(uri,"UTF-8");
+            uri = URLDecoder.decode(uri, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             try {
-                uri =  URLDecoder.decode(uri,"ISO-8859-1");
+                uri = URLDecoder.decode(uri, "ISO-8859-1");
             } catch (UnsupportedEncodingException unsupportedEncodingException) {
                 throw new Error();
             }
         }
-        if(!uri.startsWith(url)){
+        if (!uri.startsWith(url)) {
             return null;
         }
-        if(!uri.startsWith("/")){
+        if (!uri.startsWith("/")) {
             return null;
         }
         //文件分隔符替换为本地系统的文件分隔符
-        uri = uri.replace('/',File.separatorChar);
+        uri = uri.replace('/', File.separatorChar);
         //二次合法性校验
-        if(uri.contains(File.separator+'.')||uri.contains('.'+File.separator)||
-        uri.startsWith(".")||uri.endsWith(".")||INSECURE_URI.matcher(uri).matches()){
+        if (uri.contains(File.separator + '.') || uri.contains('.' + File.separator) ||
+                uri.startsWith(".") || uri.endsWith(".") || INSECURE_URI.matcher(uri).matches()) {
             return null;
         }
         //使用当前运行程序的工程目录+uri构造绝对路径返回
-        return System.getProperty("user.dir")+uri;
+        return System.getProperty("user.dir") + uri;
     }
-    private  static final Pattern ALLOWED_FILE_NAME=Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
+
+    private static final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");
 
     /**
      * 显示当前文件夹下所有文件
+     *
      * @param ctx
      * @param file
      */
-    private static void sendListing(ChannelHandlerContext ctx,File file){
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
+    private static void sendListing(ChannelHandlerContext ctx, File file) {
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         //设置消息头
-        response.headers().set(CONTENT_TYPE,"text/html;charset=UTF-8");
+        response.headers().set(CONTENT_TYPE, "text/html;charset=UTF-8");
         StringBuilder builder = new StringBuilder();
-        String dirPath=file.getPath();
+        String dirPath = file.getPath();
         builder.append("<!DOCTYPE html>\r\n");
         builder.append("<html><head>title>");
         builder.append(dirPath);
@@ -194,12 +198,12 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         builder.append("<ul>");
         builder.append("<li>链接：<a href=\"../\">..</a></li>\r\n");
         //当前目录所有文件
-        for (File f:file.listFiles()){
-            if(f.isHidden()||!f.canRead()){
+        for (File f : file.listFiles()) {
+            if (f.isHidden() || !f.canRead()) {
                 continue;
             }
             String name = f.getName();
-            if(!ALLOWED_FILE_NAME.matcher(name).matches()){
+            if (!ALLOWED_FILE_NAME.matcher(name).matches()) {
                 continue;
             }
             builder.append("<li>链接：<a href=\"");
@@ -218,20 +222,23 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         //装响应消息发送到缓冲区并刷新到SocketChannel中
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
-    private static void sendRedirect(ChannelHandlerContext ctx,String newUri){
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
-        response.headers().set(LOCATION,newUri);
+
+    private static void sendRedirect(ChannelHandlerContext ctx, String newUri) {
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+        response.headers().set(LOCATION, newUri);
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
-    private static void sendError(ChannelHandlerContext ctx,HttpResponseStatus status){
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status
-                ,Unpooled.copiedBuffer("Failure："+status.toString()+"\r\n",CharsetUtil.UTF_8));
-        response.headers().set(CONTENT_TYPE,"text/plain;charset=UTF-8");
+
+    private static void sendError(ChannelHandlerContext ctx, HttpResponseStatus status) {
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status
+                , Unpooled.copiedBuffer("Failure：" + status.toString() + "\r\n", CharsetUtil.UTF_8));
+        response.headers().set(CONTENT_TYPE, "text/plain;charset=UTF-8");
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
-    private static void setContentTypeHeader(HttpResponse response,File file){
+
+    private static void setContentTypeHeader(HttpResponse response, File file) {
         MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
-        response.headers().set(CONTENT_TYPE,mimetypesFileTypeMap.getContentType(file.getPath()));
+        response.headers().set(CONTENT_TYPE, mimetypesFileTypeMap.getContentType(file.getPath()));
 
     }
 }
