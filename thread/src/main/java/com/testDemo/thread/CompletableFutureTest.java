@@ -1,7 +1,6 @@
 package com.testDemo.thread;
 
 import org.junit.jupiter.api.Test;
-import sun.awt.windows.ThemeReader;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -11,6 +10,24 @@ import java.util.concurrent.Executors;
  * @author: zouren
  * @date: 2021/2/23
  * @description:
+ * CompletableFuture方法使用
+ * 线程串行化
+ *   1）thenRun: 不能获取上一步的执行结果
+ *   2）thenAccept: 能获取上一步的执行结果,但无返回值
+ *   3）thenApply: 能获取上一步的执行结果,也有返回值
+ * 两个任务组合--都要完成才能执行
+ *   1）thenCombine: 组合两个future,获取两个future的返回值，并返回当前任务的返回值
+ *   2）thenAccepteBoth: 组合两个future,获取两个future的返回值，然后处理任务，没有返回值
+ *   3）runAfterBoth: 组合两个future,不需要两个future的返回值，只需要两个future任务完成之后，处理该任务
+ * 两个任务组合-- 只一个任务完成就执行
+ *   1）applyToEither: 两个任务有一个执行完成,获取它的返回值，处理任务并有新的返回值
+ *   2）acceptEither: 两个任务有一个执行完成,获取它的返回值，处理任务,没有返回值
+ *     两任务需要相同返回类型
+ *   3）runAfterEither: 两个任务有一个执行完成,不需要任务返回值，处理任务,没有返回值
+ * 多任务组合
+ *   1）allOf: 等待所有任务完成
+ *   2）anyOf: 只要有一个任务完成
+ *
  */
 public class CompletableFutureTest {
     /**
@@ -104,7 +121,7 @@ public class CompletableFutureTest {
     }
     /**
      * 两个任务组合--都要完成才能执行
-     *  1）thenCombine: 组合两个future,获取两个future的返回值，然后处理任务，没有返回值
+     *  1）thenAccepteBoth: 组合两个future,获取两个future的返回值，然后处理任务，没有返回值
      * @throws Exception
      */
     @Test
@@ -132,7 +149,7 @@ public class CompletableFutureTest {
     }
     /**
      * 两个任务组合--都要完成才能执行
-     *  1）thenCombine: 组合两个future,不需要两个future的返回值，只需要两个future任务完成之后，处理该任务
+     *  1）runAfterBoth: 组合两个future,不需要两个future的返回值，只需要两个future任务完成之后，处理该任务
      * @throws Exception
      */
     @Test
