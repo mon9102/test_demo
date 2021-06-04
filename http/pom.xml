@@ -51,7 +51,7 @@
         <spring-security-oauth.version>2.3.2.RELEASE</spring-security-oauth.version>
         <commons-pool2.version>2.4.2</commons-pool2.version>
         <lombok.version>1.16.20</lombok.version>
-        <httpclient.version>4.5.7</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
     </properties>
 <dependencies>
     <dependency>
